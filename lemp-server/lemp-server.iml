@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-server:1.13" level="project" />
+    <orderEntry type="library" name="Maven: javax.websocket:javax.websocket-api:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-client:1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-core:1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-spi:1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-container-grizzly-client:1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-framework:2.3.25" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http-server:2.3.25" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http:2.3.25" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-container-grizzly-server:1.13" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-actor_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.11.8" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe:config:1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-java8-compat_2.11:0.7.0" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-cluster_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-remote_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-stream_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe:ssl-config-core_2.11:0.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-protobuf_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty:3.10.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.uncommons.maths:uncommons-maths:1.2.2a" level="project" />
+    <orderEntry type="library" name="Maven: io.aeron:aeron-driver:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: io.aeron:aeron-client:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.agrona:Agrona:0.9.0" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-cluster-tools_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: com.typesafe.akka:akka-cluster-metrics_2.11:2.4.16" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="module" module-name="lemp-package" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
+  </component>
+</module>
+
