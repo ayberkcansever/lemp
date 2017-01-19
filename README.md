@@ -168,7 +168,40 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
 
 1. Login/Logout info broadcast to followers
 
-```{ i:{id:”id”, li:”username”} }    ```
+  1.  Login Broadcast
+  
+    ```{ i:{id:”id”, li:”username”} }    ```
+  
+  2.  Logout Broadcast
+  
+    ```{ i:{id:”id”, lo:”username”} }    ```
+  
+2.  Group Information Broadcast
 
+  1.  Group created info
 
+    ```{ i:{id:”id”, g:{t:”c”,i:”id”,n:”name”} } }    ```
+    
+  2.  Group member added info
+
+    ```{ i:{id:”id”, g:{t:”a”,i:”id”,m:[“member1”, “member2”, “member3”]} } }    ```
+    
+  3.  Group user banished info
+
+    ```{ i:{id:”id”, g:{t:”b”,i:”id”,m:“member1”} } }    ```
+  
+  4.  Group terminated info
+
+    ```{ i:{id:”id”, g:{t:”t”} } }     ```
+    
+  5.  Group picture changed info
+
+    ```{ i:{id:”id”, g:{t:”p”} } }      ```
+    
+  6.  Group name changed info
+
+    ```{ i:{id:”id”, g:{t:”n”} } }      ```
+    
+    
+    
 #### 3. MESSAGE
