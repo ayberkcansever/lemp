@@ -163,3 +163,12 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
   2. Erroneous Response
   
      ```{ rp:{id:”id”, e:{c:”code”,d:”description”}} }   ```
+
+#### 2. INFORMATION
+
+1. Login/Logout info broadcast to followers
+
+```{ i:{id:”id”, li:”username”} }    ```
+
+
+#### 3. MESSAGE
