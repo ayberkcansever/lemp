@@ -1,7 +1,8 @@
 package com.lemp.server.endpoint;
 
-import com.google.gson.Gson;
-import com.lemp.packet.Datum;
+import akka.actor.ActorRef;
+import com.lemp.server.akka.LempRouters;
+import com.lemp.server.akka.object.ClientMessage;
 import org.glassfish.tyrus.core.wsadl.model.Endpoint;
 
 import javax.websocket.*;
@@ -26,19 +27,13 @@ public class LempEndpoint extends Endpoint {
 
     @OnError
     public void onError(Session session, Throwable t) {
+        t.printStackTrace();
         System.out.println(session.getId() + " error.");
     }
 
     @OnMessage
     public void onMessage(String message, Session session) {
-        try {
-            Gson gson = new Gson();
-            Datum datum = gson.fromJson(message, Datum.class);
-            System.out.println(message + " received from session " + session.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        LempRouters.packetProcessorRouter.tell(new ClientMessage(message, session), ActorRef.noSender());
     }
 
 }
