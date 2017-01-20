@@ -29,10 +29,11 @@ public class PacketProcessorActor extends UntypedActor {
                     if(datum.getRq().getA() != null) {
                         LempRouters.authenticationRequestProcessorRouter.tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
                     }
-
+                } else if(datum.getM() != null) {
+                    // override the sender with session identity
+                    datum.getM().setS((String) session.getUserProperties().get("identity"));
+                    LempRouters.messageProcessorRouter.tell(datum.getM(), ActorRef.noSender());
                 }
-
-
                 System.out.println(message + " received from session " + session.getId());
             } catch (Exception e) {
                 e.printStackTrace();

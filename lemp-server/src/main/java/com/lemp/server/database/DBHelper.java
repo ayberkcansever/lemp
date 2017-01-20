@@ -4,6 +4,10 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.lemp.packet.Message;
+
+import java.util.Date;
 
 
 /**
@@ -13,6 +17,8 @@ public class DBHelper {
 
     private static Cluster cluster;
     private static Session session;
+
+    private static Gson gson = new Gson();
 
     public static void init(){
         cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
@@ -31,6 +37,11 @@ public class DBHelper {
             return true;
         }
         return false;
+    }
+
+    public static void insertOfflineMessage(Message message) {
+        session.execute("insert into offline (receiver, sender, id, message, sent_time) values(?, ?, ?, ?, ?)",
+                message.getR(), message.getS(), message.getId(), gson.toJson(message), new Date());
     }
 
 }

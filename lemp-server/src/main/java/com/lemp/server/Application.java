@@ -1,8 +1,10 @@
 package com.lemp.server;
 
 import akka.actor.ActorSystem;
+import akka.actor.DeadLetter;
 import akka.actor.Props;
 import com.lemp.server.akka.ClusterListener;
+import com.lemp.server.akka.actor.DeadLetterActor;
 import com.lemp.server.database.DBHelper;
 import com.lemp.server.endpoint.LempEndpoint;
 import org.glassfish.tyrus.server.Server;
@@ -27,6 +29,8 @@ public class Application {
 
         // Create an actor that handles cluster domain events
         actorSystem.actorOf(Props.create(ClusterListener.class), "clusterListener");
+
+        actorSystem.eventStream().subscribe(actorSystem.actorOf(Props.create(DeadLetterActor.class)), DeadLetter.class);
 
     }
 
