@@ -11,12 +11,12 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
   ```{ rq:{id:”id”,a:{i:”identity”,t:”token”}} } ```
   
   ```{ rp:{id:”id”, r:0|1} }```
-2. Followings Requests
-  1. Register Followings Request
+2. User Followings Requests
+  1. Register User's Followings Request
   
     ```{ rq:{id:”id”, f:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} } ```
     
-  2. Add Following Request
+  2. Add New Following Request
   
      ```{ rq:{id:”id”, af:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
   3. Remove Following Request
@@ -25,7 +25,7 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
   4. Update Following Request
   
     ```{ rq:{id:”id”, uf:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
-3. State Request/Response
+3. State (Last Offline) Request/Response
 
   ```{ rq:{id:”id”, s:{u:”username”}} } ```
   
@@ -163,3 +163,45 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
   2. Erroneous Response
   
      ```{ rp:{id:”id”, e:{c:”code”,d:”description”}} }   ```
+
+#### 2. INFORMATION
+
+1. Login/Logout info broadcast to followers
+
+  1.  Login Broadcast
+  
+    ```{ i:{id:”id”, li:”username”} }    ```
+  
+  2.  Logout Broadcast
+  
+    ```{ i:{id:”id”, lo:”username”} }    ```
+  
+2.  Group Information Broadcast
+
+  1.  Group created info
+
+    ```{ i:{id:”id”, g:{t:”c”,i:”id”,n:”name”} } }    ```
+    
+  2.  Group member added info
+
+    ```{ i:{id:”id”, g:{t:”a”,i:”id”,m:[“member1”, “member2”, “member3”]} } }    ```
+    
+  3.  Group user banished info
+
+    ```{ i:{id:”id”, g:{t:”b”,i:”id”,m:“member1”} } }    ```
+  
+  4.  Group terminated info
+
+    ```{ i:{id:”id”, g:{t:”t”} } }     ```
+    
+  5.  Group picture changed info
+
+    ```{ i:{id:”id”, g:{t:”p”} } }      ```
+    
+  6.  Group name changed info
+
+    ```{ i:{id:”id”, g:{t:”n”} } }      ```
+    
+    
+    
+#### 3. MESSAGE
