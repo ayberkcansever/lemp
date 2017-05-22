@@ -22,13 +22,13 @@ A response may have a content or may be empty (only success or error)
     
   ###### 1.2.2. Add New Following Request
   
-     ```{ rq:{id:”id”, af:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
+  ```{ rq:{id:”id”, af:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
   ###### 1.2.3. Remove Following Request
   
-    ```{ rq:{id:”id”, rf:[“f1”,”f2”]} }  ```
+  ```{ rq:{id:”id”, rf:[“f1”,”f2”]} }  ```
   ###### 1.2.4. Update Following Request
   
-    ```{ rq:{id:”id”, uf:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
+  ```{ rq:{id:”id”, uf:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
 ##### 1.3. State (Last Offline) Request/Response
 
   ```{ rq:{id:”id”, s:{u:”username”}} } ```
@@ -37,137 +37,137 @@ A response may have a content or may be empty (only success or error)
 ##### 1.4. Personal Requests
   ###### 1.4.1. Personal Information Request/Response
   
-    ```{ rq:{id:”id”, i:{u:”username”}} }  ```
-    
-    ```{ rp:{id:”id”, i:{u:”username”, c:”creationdate”, r:”registerdate”}} }   ```
+  ``{ rq:{id:”id”, i:{u:”username”}} }  ```
+   
+  ```{ rp:{id:”id”, i:{u:”username”, c:”creationdate”, r:”registerdate”}} }   ```
   ###### 1.4.2. Picture Set Request
   
-    ```{ rq:{id:”id”, p:{t:”s”, u:”username”, v:”base4value”}} }  ```
+  ```{ rq:{id:”id”, p:{t:”s”, u:”username”, v:”base4value”}} }  ```
   ###### 1.4.3. Picture Get Request/Response
   
-    ```{ rq:{id:”id”, p:{t:”g”, u:”username”}} }  ```
-    
-    ```{ rp:{id:”id”, p:{u:”username”, v:”base64value”}} }   ```
+  ```{ rq:{id:”id”, p:{t:”g”, u:”username”}} }  ```
+   
+  ```{ rp:{id:”id”, p:{u:”username”, v:”base64value”}} }   ```
   ###### 1.4.4. Status Set Request
   
-    ```{ rq:{id:”id”, st:{t:”s”, u:”username”, s:”status”}} }  ```
+  ```{ rq:{id:”id”, st:{t:”s”, u:”username”, s:”status”}} }  ```
   ###### 1.4.5. Status Get Request/Response
   
-    ```{ rq:{id:”id”, st:{t:”g”, u:”username”}} }  ```
+  ```{ rq:{id:”id”, st:{t:”g”, u:”username”}} }  ```
     
-    ```{ rp:{id:”id”, st:{u:”username”, s:”status”}} }   ```
+  ```{ rp:{id:”id”, st:{u:”username”, s:”status”}} }   ```
 ##### 1.5. Privacy Requests
   ###### 1.5.1. Block Request
   
-    ```{ rq:{id:”id”, b:{u:”username”}} }   ```
+  ```{ rq:{id:”id”, b:{u:”username”}} }   ```
   ###### 1.5.2. Unblock Request
   
-    ```{ rq:{id:”id”, ub:{u:”username”}} }   ```
+  ```{ rq:{id:”id”, ub:{u:”username”}} }   ```
 ##### 1.6. Group Requests
   ###### 1.6.1. Create Group Request
     
-    ```{ rq:{id:”id”, g:{t:”c”, i:”id”,n:”groupname”, p:”picture”, m:[“member1”, “member2”, “member3”]}}}  ```
+  ```{ rq:{id:”id”, g:{t:”c”, i:”id”,n:”groupname”, p:”picture”, m:[“member1”, “member2”, “member3”]}}}  ```
   ###### 1.6.2. Add Users to Group Request
   
-    ```{ rq:{id:”id”, g:{t:”a”, i:”id”,m:[“member1”, “member2”, “member3”]}}}  ```
+  ```{ rq:{id:”id”, g:{t:”a”, i:”id”,m:[“member1”, “member2”, “member3”]}}}  ```
   ###### 1.6.3. Banish Users from Group Request
   
-    ```{ rq:{id:”id”, g:{t:”b”,i:”id”,m:[“member1”, “member2”, “member3”]}}}   ```
+  ```{ rq:{id:”id”, g:{t:”b”,i:”id”,m:[“member1”, “member2”, “member3”]}}}   ```
   ###### 1.6.4. Leave from Group Request
   
-    ```{ rq:{id:”id”, g:{t:”l”, i:”id”}}}  ```
+  ```{ rq:{id:”id”, g:{t:”l”, i:”id”}}}  ```
   ###### 1.6.5. Terminate Group Request
   
-    ```{ rq:{id:”id”, g:{t:”t”, i:”id”}}}   ```
+  ```{ rq:{id:”id”, g:{t:”t”, i:”id”}}}   ```
   ###### 1.6.6. Group Information Request/Response
   
-    ```{ rq:{id:”id”, g:{t:”i”, i:”id”}}}    ```
+  ```{ rq:{id:”id”, g:{t:”i”, i:”id”}}}    ```
     
-    ```{ rp:{id:”id”, g:{i:”id”,c:”creationdate”,mt:”mutetill”,m:[“member1”, “member2”,”member3”]}} }   ```
+  ```{ rp:{id:”id”, g:{i:”id”,c:”creationdate”,mt:”mutetill”,m:[“member1”, “member2”,”member3”]}} }   ```
   ###### 1.6.7. Admins Add Request
   
-    ```{ rq:{id:”id”, g:{t:”aad”, i:”id”, ad:[“member1”,“member2”]}}}   ```
+  ```{ rq:{id:”id”, g:{t:”aad”, i:”id”, ad:[“member1”,“member2”]}}}   ```
   ###### 1.6.8. Admins Get Request/Response
   
-    ```{ rq:{id:”id”, g:{t:”ad”, i:”id”}}}  ```
+  ```{ rq:{id:”id”, g:{t:”ad”, i:”id”}}}  ```
     
-    ```{ rp:{id:”id”, g:{i:”id”,ad:[“member1”, “member2”,”member3”]}} }   ```
+  ```{ rp:{id:”id”, g:{i:”id”,ad:[“member1”, “member2”,”member3”]}} }   ```
   ###### 1.6.9. Picture Set Request
   
-    ```{ rq:{id:”id”, p:{t:”s”, i:”id”, v:”base64value”}} }  ```
+  ```{ rq:{id:”id”, p:{t:”s”, i:”id”, v:”base64value”}} }  ```
 
   ###### 1.6.10. Picture Get Request/Response
   
-    ```{ rq:{id:”id”, p:{t:”g”, i:”id”}} }   ```
+  ```{ rq:{id:”id”, p:{t:”g”, i:”id”}} }   ```
     
-    ```{ rp:{id:”id”, p:{i:”id”, v:”base64value”}} }   ```
+  ```{ rp:{id:”id”, p:{i:”id”, v:”base64value”}} }   ```
   ###### 1.6.11. Name Set Request
   
-    ```{ rq:{id:”id”, n:{t:”s”, i:”id”, n:”name”}} }  ```
+  ```{ rq:{id:”id”, n:{t:”s”, i:”id”, n:”name”}} }  ```
   ###### 1.6.12. Name Get Request/Response
   
-    ```{ rq:{id:”id”, n:{t:”g”, i:”id”}} }   ```
+  ```{ rq:{id:”id”, n:{t:”g”, i:”id”}} }   ```
     
-    ```{ rp:{id:”id”, n:{i:”id”, n:”groupname”}} }   ```
+  ```{ rp:{id:”id”, n:{i:”id”, n:”groupname”}} }   ```
   ###### 1.6.13. Mute Request
   
-    ```{ rq:{id:”id”, mt:{i:”id”,t:”mutetill”}} }   ```
+  ```{ rq:{id:”id”, mt:{i:”id”,t:”mutetill”}} }   ```
   ###### 1.6.14. Unmute Request
   
-    ```{ rq:{id:”id”, umt:{i:”id”}} }   ```
+  ```{ rq:{id:”id”, umt:{i:”id”}} }   ```
     
 ##### 1.7. Broadcast Group Requests
   ###### 1.7.1. Create Broadcast Group Request
   
-    ```{ rq:{id:”id”, br:{t:”c”, i:”id”,n:”broadcastname”, p:”picture”, m:[“member1”, “member2”, “member3”]}}}   ```
+  ```{ rq:{id:”id”, br:{t:”c”, i:”id”,n:”broadcastname”, p:”picture”, m:[“member1”, “member2”, “member3”]}}}   ```
   ###### 1.7.2. Add Users to Broadcast Group Request
   
-    ```{ rq:{id:”id”, br:{t:”a”, i:”id”,m:[“member1”, “member2”, “member3”]}}}   ```
+  ```{ rq:{id:”id”, br:{t:”a”, i:”id”,m:[“member1”, “member2”, “member3”]}}}   ```
   ###### 1.7.3. Banish Users from Broadcast Group Request
   
-    ```{ rq:{id:”id”, br:{t:”b”,i:”id”,m:[“member1”, “member2”, “member3”]}}}  ```
+  ```{ rq:{id:”id”, br:{t:”b”,i:”id”,m:[“member1”, “member2”, “member3”]}}}  ```
   ###### 1.7.4. Terminate Broadcast Group Request
   
-    ```{ rq:{id:”id”, br:{t:”t”, i:”id”}}}  ```
+  ```{ rq:{id:”id”, br:{t:”t”, i:”id”}}}  ```
   ###### 1.7.5. Broadcast Group Information Request/Response
   
-    ```{ rq:{id:”id”, br:{t:”i”, i:”id”}}}   ```
+  ```{ rq:{id:”id”, br:{t:”i”, i:”id”}}}   ```
     
-    ```{ rp:{id:”id”, br:{i:”id”,c:”creationdate”,n:”name”,m:[“member1”, “member2”,”member3”]}} }   ```
+  ```{ rp:{id:”id”, br:{i:”id”,c:”creationdate”,n:”name”,m:[“member1”, “member2”,”member3”]}} }   ```
   ###### 1.7.6. Picture Set Request
   
-    ```{ rq:{id:”id”, p:{t:”s”, b:”id”, v:”base64value”}} }   ```
+  ```{ rq:{id:”id”, p:{t:”s”, b:”id”, v:”base64value”}} }   ```
   ###### 1.7.7. Picture Get Request/Response
   
-    ```{ rq:{id:”id”, p:{t:”g”, b:”id”}} }   ```
+  ```{ rq:{id:”id”, p:{t:”g”, b:”id”}} }   ```
     
-    ```{ rp:{id:”id”, p:{b:”id”, v:”base64value”}} }  ```
+  ```{ rp:{id:”id”, p:{b:”id”, v:”base64value”}} }  ```
   ###### 1.7.8. Name Set Request
   
-    ```{ rq:{id:”id”, n:{t:”s”, b:”id”, n:”name”}} }   ```
+  ```{ rq:{id:”id”, n:{t:”s”, b:”id”, n:”name”}} }   ```
   ###### 1.7.9. Name Get Request/Response
   
-    ```{ rq:{id:”id”, n:{t:”s”, b:”id”}} }   ```
+  ```{ rq:{id:”id”, n:{t:”s”, b:”id”}} }   ```
     
-    ```{ rp:{id:”id”, n:{b:”id”, n:”broadcastname”}} }   ```
+  ```{ rp:{id:”id”, n:{b:”id”, n:”broadcastname”}} }   ```
 ##### 1.8. Server Reqeusts
   ###### 1.8.1. Server Time Request/Response
   
-    ```{srq:{id:”id”,t:”t”}}   ```
+  ```{srq:{id:”id”,t:”t”}}   ```
     
-    ```{ srp:{id:”id”, t:”t”, tm:”serverunixtime”} }   ```
+  ```{ srp:{id:”id”, t:”t”, tm:”serverunixtime”} }   ```
   ###### 1.8.2. Knock-Knock Request
     
-    ```{srq:{id:”id”,t:”k”}}  ```
+  ```{srq:{id:”id”,t:”k”}}  ```
     
-    ```{ srp:{id:”id”, t:”k”} }   ```
+  ```{ srp:{id:”id”, t:”k”} }   ```
 ##### 1.9. Response/Error
   ###### 1.9.1. Successful Response
   
-     ```{ rp:{id:”id”} }  ```
+  ```{ rp:{id:”id”} }  ```
   ###### 1.9.2. Erroneous Response
   
-     ```{ rp:{id:”id”, e:{c:”code”,d:”description”}} }   ```
+  ```{ rp:{id:”id”, e:{c:”code”,d:”description”}} }   ```
 
 #### 2. INFORMATION
 
@@ -175,38 +175,37 @@ A response may have a content or may be empty (only success or error)
 
   ###### 2.1.1.  Login Broadcast
   
-    ```{ i:{id:”id”, li:”username”} }    ```
+  ```{ i:{id:”id”, li:”username”} }    ```
   
   ###### 2.1.2.  Logout Broadcast
   
-    ```{ i:{id:”id”, lo:”username”} }    ```
+  ```{ i:{id:”id”, lo:”username”} }    ```
   
 ##### 2.2.  Group Information Broadcast
 
   ###### 2.2.1.  Group created info
 
-    ```{ i:{id:”id”, g:{t:”c”,i:”id”,n:”name”} } }    ```
-    
+  ```{ i:{id:”id”, g:{t:”c”,i:”id”,n:”name”} } }    ```
+   
   ###### 2.2.2.  Group member added info
 
-    ```{ i:{id:”id”, g:{t:”a”,i:”id”,m:[“member1”, “member2”, “member3”]} } }    ```
+  ```{ i:{id:”id”, g:{t:”a”,i:”id”,m:[“member1”, “member2”, “member3”]} } }    ```
     
   ###### 2.2.3.  Group user banished info
 
-    ```{ i:{id:”id”, g:{t:”b”,i:”id”,m:“member1”} } }    ```
+  ```{ i:{id:”id”, g:{t:”b”,i:”id”,m:“member1”} } }    ```
   
   ###### 2.2.4.  Group terminated info
 
-    ```{ i:{id:”id”, g:{t:”t”} } }     ```
+  ```{ i:{id:”id”, g:{t:”t”} } }     ```
     
   ###### 2.2.5.  Group picture changed info
 
-    ```{ i:{id:”id”, g:{t:”p”} } }      ```
+  ```{ i:{id:”id”, g:{t:”p”} } }      ```
     
   ###### 2.2.6.  Group name changed info
 
-    ```{ i:{id:”id”, g:{t:”n”} } }      ```
-    
-    
+  ```{ i:{id:”id”, g:{t:”n”} } }      ```
+  
     
 #### 3. MESSAGE
