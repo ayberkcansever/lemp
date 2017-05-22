@@ -11,8 +11,8 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
   ```{ rq:{id:”id”,a:{i:”identity”,t:”token”}} } ```
   
   ```{ rp:{id:”id”, r:0|1} }```
-  
-##### 1.2. User Followings Requests
+ 
+    1.2. User Followings Requests
     ###### 1.2.1. Register User's Followings Request
   
     ```{ rq:{id:”id”, f:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} } ```
