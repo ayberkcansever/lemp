@@ -213,8 +213,8 @@ A response may have a content or may be empty (only success or error)
   ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", w:""} }    ```
   
   - Message Types
-      i.   t: text
-      ii.  p: photo
-      iii. v: video
-      iv.  a: audio
-      v.   l: location
+      * t: text
+      * p: photo
+      * v: video
+      * a: audio
+      * l: location
