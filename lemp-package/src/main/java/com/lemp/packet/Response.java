@@ -17,7 +17,7 @@ public class Response {
     private Group g;
     private Name n;
     private Broadcast br;
-    private Error e;
+    private Error.Type e;
 
     public String getId() {
         return id;
@@ -91,11 +91,11 @@ public class Response {
         this.br = br;
     }
 
-    public Error getE() {
+    public Error.Type getE() {
         return e;
     }
 
-    public void setE(Error e) {
+    public void setE(Error.Type e) {
         this.e = e;
     }
 }

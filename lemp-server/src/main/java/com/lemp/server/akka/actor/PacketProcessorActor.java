@@ -2,8 +2,12 @@ package com.lemp.server.akka.actor;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
+import akka.cluster.pubsub.DistributedPubSub;
 import com.google.gson.Gson;
+import com.lemp.object.Error;
 import com.lemp.packet.Datum;
+import com.lemp.packet.Response;
+import com.lemp.server.Application;
 import com.lemp.server.akka.LempRouters;
 import com.lemp.server.akka.object.ClientMessage;
 import com.lemp.server.akka.object.SessionRequest;
@@ -15,6 +19,12 @@ import javax.websocket.Session;
  */
 public class PacketProcessorActor extends UntypedActor {
 
+    private ActorRef mediator;
+
+    public PacketProcessorActor() {
+        mediator = DistributedPubSub.get(Application.actorSystem).mediator();
+    }
+
     private Gson gson = new Gson();
 
     @Override
@@ -24,11 +34,25 @@ public class PacketProcessorActor extends UntypedActor {
                 ClientMessage clientMessage = (ClientMessage) msg;
                 String message = clientMessage.getMessage();
                 Session session = clientMessage.getSession();
+
                 Datum datum = gson.fromJson(message, Datum.class);
+
+                if(session.getUserProperties().get("identity") == null) {
+                    if(datum.getRq() != null && datum.getRq().getA() != null) {
+                        // continue if identity is null && an authentication request came
+                    } else {
+                        Response errorResponse = new Response();
+                        errorResponse.setE(Error.Type.unauthorized);
+                        session.getBasicRemote().sendText(gson.toJson(errorResponse));
+                        return;
+                    }
+                }
+
                 if(datum.getRq() != null) {
                     // Authentication Request
                     if(datum.getRq().getA() != null) {
                         LempRouters.authenticationRequestProcessorRouter.tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
+                        return;
                     }
                     // Following Request
                     else if(datum.getRq().getF() != null

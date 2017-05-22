@@ -29,6 +29,7 @@ public class AuthenticationRequestProcessorActor extends UntypedActor {
                 Authentication authentication = request.getA();
                 String identity = authentication.getI();
                 String token = authentication.getT();
+
                 Response response = new Response();
                 response.setId(request.getId());
                 response.setResult(DBHelper.isAuthenticated(identity, token) ? 1 : 0);

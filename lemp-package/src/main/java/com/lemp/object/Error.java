@@ -5,6 +5,36 @@ package com.lemp.object;
  */
 public class Error {
 
+    public enum Type {
+        not_found(400, "Item not found."),
+        unauthorized(401, "Unauthorized."),
+        forbidden(403, "Forbidden.");
+
+        private int code;
+        private String description;
+
+        Type(int code, String description) {
+            this.code = code;
+            this.description = description;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public void setCode(int code) {
+            this.code = code;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+    }
+
     private int c;
     private String d;
 
@@ -23,4 +53,6 @@ public class Error {
     public void setD(String d) {
         this.d = d;
     }
+
+
 }

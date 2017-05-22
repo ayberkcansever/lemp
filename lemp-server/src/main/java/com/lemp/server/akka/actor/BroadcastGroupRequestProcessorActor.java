@@ -3,8 +3,6 @@ package com.lemp.server.akka.actor;
 import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.object.Broadcast;
-import com.lemp.object.Group;
-import com.lemp.object.State;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.object.SessionRequest;

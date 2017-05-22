@@ -26,10 +26,7 @@ public class SessionActor extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Throwable {
         if(message instanceof Message) {
-            Message msg = (Message) message;
-            if("text".equals(msg.getT())) {
-                session.getBasicRemote().sendText(gson.toJson(message));
-            }
+            session.getBasicRemote().sendText(gson.toJson(message));
         }
 
     }

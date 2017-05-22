@@ -1,14 +1,10 @@
 package com.lemp.server.akka.actor;
 
-import akka.actor.Props;
 import akka.actor.UntypedActor;
 import com.google.gson.Gson;
-import com.lemp.object.Authentication;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
-import com.lemp.server.Application;
 import com.lemp.server.akka.object.SessionRequest;
-import com.lemp.server.database.DBHelper;
 
 import javax.websocket.Session;
 

@@ -5,10 +5,32 @@ package com.lemp.packet;
  */
 public class Message extends Packet {
 
+    public enum Type {
+        text("t"),
+        photo("p"),
+        video("v"),
+        audio("a"),
+        location("l");
+
+        private String key;
+
+        Type(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+    }
+
     private String s;
     private String r;
     private String t;
-    private String w;
+    private String c;
 
     public String getS() {
         return s;
@@ -34,11 +56,11 @@ public class Message extends Packet {
         this.t = t;
     }
 
-    public String getW() {
-        return w;
+    public String getC() {
+        return c;
     }
 
-    public void setW(String w) {
-        this.w = w;
+    public void setC(String c) {
+        this.c = c;
     }
 }
