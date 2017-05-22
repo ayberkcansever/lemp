@@ -7,6 +7,31 @@ import java.util.List;
  */
 public class Group {
 
+    public enum RequestType {
+        create("c"),
+        add("a"),
+        banish("b"),
+        leave("l"),
+        terminate("t"),
+        information("i"),
+        add_admin("aad"),
+        get_admins("ad");
+
+        private String key;
+
+        RequestType(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+    }
+
     private String t;
     private String i;
     private String n;

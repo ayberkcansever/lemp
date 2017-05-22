@@ -7,6 +7,28 @@ import java.util.List;
  */
 public class Broadcast {
 
+    public enum RequestType {
+        create("c"),
+        add("a"),
+        banish("b"),
+        terminate("t"),
+        information("i");
+
+        private String key;
+
+        RequestType(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+    }
+
     private String t;
     private String i;
     private String n;

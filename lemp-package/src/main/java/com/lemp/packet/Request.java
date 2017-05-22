@@ -9,6 +9,25 @@ import java.util.List;
  */
 public class Request extends Packet{
 
+    public enum Type {
+        set("s"),
+        get("g");
+
+        private String key;
+
+        Type(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+    }
+
     private Authentication a;
     private List<User> f;
     private List<User> af;
@@ -23,6 +42,7 @@ public class Request extends Packet{
     private Group g;
     private Name n;
     private Mute mt;
+    private Unmute umt;
     private Broadcast br;
 
     public Authentication getA() {
@@ -143,5 +163,13 @@ public class Request extends Packet{
 
     public void setUb(Privacy ub) {
         this.ub = ub;
+    }
+
+    public Unmute getUmt() {
+        return umt;
+    }
+
+    public void setUmt(Unmute umt) {
+        this.umt = umt;
     }
 }
