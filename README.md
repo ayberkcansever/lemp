@@ -210,7 +210,7 @@ A response may have a content or may be empty (only success or error)
     
 #### 3. MESSAGE
 
-  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", w:""} }    ```
+  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content"} }    ```
   
   - Message Types
       * t: text
