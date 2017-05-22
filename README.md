@@ -37,7 +37,7 @@ A response may have a content or may be empty (only success or error)
 ##### 1.4. Personal Requests
   ###### 1.4.1. Personal Information Request/Response
   
-  ``{ rq:{id:”id”, i:{u:”username”}} }  ```
+  ```{ rq:{id:”id”, i:{u:”username”}} }  ```
    
   ```{ rp:{id:”id”, i:{u:”username”, c:”creationdate”, r:”registerdate”}} }   ```
   ###### 1.4.2. Picture Set Request
@@ -209,3 +209,12 @@ A response may have a content or may be empty (only success or error)
   
     
 #### 3. MESSAGE
+
+  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", w:""} }    ```
+  
+  - Message Types
+      i.   t: text
+      ii.  p: photo
+      iii. v: video
+      iv.  a: audio
+      v.   l: location
