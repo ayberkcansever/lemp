@@ -12,21 +12,21 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
   
   ```{ rp:{id:”id”, r:0|1} }```
   
-###### 2. User Followings Requests
-  1. Register User's Followings Request
+##### 2. User Followings Requests
+  ###### 1. Register User's Followings Request
   
     ```{ rq:{id:”id”, f:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} } ```
     
-  2. Add New Following Request
+  ###### 2. Add New Following Request
   
      ```{ rq:{id:”id”, af:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
-  3. Remove Following Request
+  ###### 3. Remove Following Request
   
     ```{ rq:{id:”id”, rf:[“f1”,”f2”]} }  ```
-  4. Update Following Request
+  ###### 4. Update Following Request
   
     ```{ rq:{id:”id”, uf:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
-3. State (Last Offline) Request/Response
+##### 3. State (Last Offline) Request/Response
 
   ```{ rq:{id:”id”, s:{u:”username”}} } ```
   
