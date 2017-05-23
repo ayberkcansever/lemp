@@ -221,7 +221,7 @@ A response may have a content or may be empty (only success or error)
       
    ###### 3.1.  Server Receipt Message
    
-   Server receipt message is sent to all messages delivered to the server.
+   Server receipt message is sent for all messages delivered to the server.
    
   ```{ m:{id:"id", sr:{id:"sent_messageId"} } }    ```
     
