@@ -27,10 +27,11 @@ public class Message extends Packet {
         }
     }
 
-    private String s;
-    private String r;
-    private String t;
-    private String c;
+    protected String s;
+    protected String r;
+    protected String t;
+    protected String c;
+    protected Long st;
 
     public String getS() {
         return s;
@@ -62,5 +63,13 @@ public class Message extends Packet {
 
     public void setC(String c) {
         this.c = c;
+    }
+
+    public Long getSt() {
+        return st;
+    }
+
+    public void setSt(Long st) {
+        this.st = st;
     }
 }

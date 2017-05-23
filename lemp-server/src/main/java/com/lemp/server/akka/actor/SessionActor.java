@@ -6,8 +6,12 @@ import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.google.gson.Gson;
 import com.lemp.packet.Message;
+import com.lemp.server.database.DBHelper;
 
 import javax.websocket.Session;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by ayberkcansever on 20/01/17.
@@ -28,12 +32,21 @@ public class SessionActor extends UntypedActor {
         if(message instanceof Message) {
             session.getBasicRemote().sendText(gson.toJson(message));
         }
-
     }
 
     @Override
     public void preStart() {
         System.out.println(session.getUserProperties().get("identity") + " starting...");
+        List<String> offlineMessages = DBHelper.getOfflineMessagesAsString((String) session.getUserProperties().get("identity"), true);
+        Iterator<String> iterator = offlineMessages.iterator();
+        while(iterator.hasNext()) {
+            String message = iterator.next();
+            try {
+                session.getBasicRemote().sendText(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

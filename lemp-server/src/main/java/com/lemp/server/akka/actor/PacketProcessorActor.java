@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.lemp.object.Error;
 import com.lemp.packet.Datum;
 import com.lemp.packet.Response;
+import com.lemp.packet.ServerReceiptMessage;
 import com.lemp.server.Application;
 import com.lemp.server.akka.LempRouters;
 import com.lemp.server.akka.object.ClientMessage;
@@ -90,6 +91,10 @@ public class PacketProcessorActor extends UntypedActor {
                 } else if(datum.getM() != null) {
                     // override the sender with session identity
                     datum.getM().setS((String) session.getUserProperties().get("identity"));
+                    datum.getM().setSt(System.currentTimeMillis());
+                    // sent server receipt message to the sender
+                    ServerReceiptMessage srm = new ServerReceiptMessage(datum.getM());
+                    LempRouters.messageProcessorRouter.tell(srm, ActorRef.noSender());
                     LempRouters.messageProcessorRouter.tell(datum.getM(), ActorRef.noSender());
                 }
                 System.out.println(message + " received from session " + session.getId());
