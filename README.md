@@ -210,7 +210,7 @@ A response may have a content or may be empty (only success or error)
     
 #### 3. MESSAGE
 
-  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content"} }    ```
+  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content", st:sent_time} }    ```
   
   - Message Types
       * t: text
@@ -218,3 +218,17 @@ A response may have a content or may be empty (only success or error)
       * v: video
       * a: audio
       * l: location
+      
+   ###### 3.1.  Server Receipt Message
+   
+   Server receipt message is sent for all messages delivered to the server.
+   
+  ```{ m:{id:"id", sr:{id:"sent_messageId"} } }    ```
+    
+   ###### 3.2.  Delivered Message
+   
+  ```{ m:{id:"id", st:sent_time, dm:{id:"received_messageId"} } }    ```
+    
+   ###### 3.3.  Noticed Message
+   
+  ```{ m:{id:"id", st:sent_time, nm:{id:"noticed_messageId"} } }    ```
