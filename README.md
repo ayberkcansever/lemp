@@ -210,7 +210,7 @@ A response may have a content or may be empty (only success or error)
     
 #### 3. MESSAGE
 
-  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content"} }    ```
+  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content", st:sent_time} }    ```
   
   - Message Types
       * t: text
@@ -227,8 +227,8 @@ A response may have a content or may be empty (only success or error)
     
    ###### 3.2.  Delivered Message
    
-  ```{ m:{id:"id", dr:{id:"received_messageId"} } }    ```
+  ```{ m:{id:"id", st:sent_time, dm:{id:"received_messageId"} } }    ```
     
    ###### 3.3.  Noticed Message
    
-  ```{ m:{id:"id", nt:{id:"noticed_messageId"} } }    ```
+  ```{ m:{id:"id", st:sent_time, nm:{id:"noticed_messageId"} } }    ```
