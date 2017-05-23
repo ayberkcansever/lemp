@@ -223,12 +223,12 @@ A response may have a content or may be empty (only success or error)
    
    Server receipt message is sent to all messages delivered to the server.
    
-    ```{ m:{id:"id", sr:{id:"sent_messageId"} } }    ```
+  ```{ m:{id:"id", sr:{id:"sent_messageId"} } }    ```
     
    ###### 3.2.  Delivered Message
    
-    ```{ m:{id:"id", dr:{id:"received_messageId"} } }    ```
+  ```{ m:{id:"id", dr:{id:"received_messageId"} } }    ```
     
    ###### 3.3.  Noticed Message
    
-    ```{ m:{id:"id", nt:{id:"noticed_messageId"} } }    ```
+  ```{ m:{id:"id", nt:{id:"noticed_messageId"} } }    ```
