@@ -150,7 +150,7 @@ A response may have a content or may be empty (only success or error)
   ```{ rq:{id:”id”, n:{t:”s”, b:”id”}} }   ```
     
   ```{ rp:{id:”id”, n:{b:”id”, n:”broadcastname”}} }   ```
-##### 1.8. Server Reqeusts
+##### 1.8. Server Requests
   ###### 1.8.1. Server Time Request/Response
   
   ```{srq:{id:”id”,t:”t”}}   ```
