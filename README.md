@@ -6,14 +6,20 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
 3. Message
 
 #### 1. REQUEST
-Every request has a response: Success or Error covered in section 1.9
+Every request except logout request has a response: Success or Error covered in section 1.9
 A response may have a content or may be empty (only success or error)
 
 ##### 1.1. Authentication Request/Response
 
+  ###### 1.1.1. Login Request
+  
   ```{ rq:{id:”id”,a:{i:”identity”,t:”token”}} } ```
   
   ```{ rp:{id:”id”, r:0|1} }```
+  
+  ###### 1.1.2. Logout Request
+  
+  ```{ rq:{id:”id”, lo:{r:"reason"}} } ```
  
 ##### 1.2. User Followings Requests
   ###### 1.2.1. Register User's Followings Request
@@ -150,7 +156,7 @@ A response may have a content or may be empty (only success or error)
   ```{ rq:{id:”id”, n:{t:”s”, b:”id”}} }   ```
     
   ```{ rp:{id:”id”, n:{b:”id”, n:”broadcastname”}} }   ```
-##### 1.8. Server Reqeusts
+##### 1.8. Server Requests
   ###### 1.8.1. Server Time Request/Response
   
   ```{srq:{id:”id”,t:”t”}}   ```
