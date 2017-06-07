@@ -8,7 +8,8 @@ public class Error {
     public enum Type {
         not_found(400, "Item not found."),
         unauthorized(401, "Unauthorized."),
-        forbidden(403, "Forbidden.");
+        forbidden(403, "Forbidden."),
+        internal_server_error(500, "Internal server Error.");
 
         private int code;
         private String description;

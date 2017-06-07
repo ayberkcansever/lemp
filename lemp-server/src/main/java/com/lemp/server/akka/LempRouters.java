@@ -13,6 +13,7 @@ public class LempRouters {
 
     public static ActorRef packetProcessorRouter;
     public static ActorRef authenticationRequestProcessorRouter;
+    public static ActorRef logoutRequestProcessorRouter;
     public static ActorRef messageProcessorRouter;
     public static ActorRef offlineMessageInserterRouter;
     public static ActorRef followingRequestRouter;
@@ -26,6 +27,8 @@ public class LempRouters {
         try {
             packetProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(PacketProcessorActor.class)),
                     "packetProcessorRouter");
+            logoutRequestProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(LogoutRequestProcessorActor.class)),
+                    "logoutRequestProcessorRouter");
             authenticationRequestProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(AuthenticationRequestProcessorActor.class)),
                     "authenticationRequestProcessorRouter");
             messageProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(MessageProcessorActor.class)),

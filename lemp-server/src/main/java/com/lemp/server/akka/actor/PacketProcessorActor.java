@@ -55,6 +55,10 @@ public class PacketProcessorActor extends UntypedActor {
                         LempRouters.authenticationRequestProcessorRouter.tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
                         return;
                     }
+                    // Logout Request
+                    else if(datum.getRq().getLo() != null) {
+                        LempRouters.logoutRequestProcessorRouter.tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
+                    }
                     // Following Request
                     else if(datum.getRq().getF() != null
                             || datum.getRq().getAf() != null

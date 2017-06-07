@@ -6,7 +6,7 @@ import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.google.gson.Gson;
 import com.lemp.packet.Message;
-import com.lemp.server.database.DBHelper;
+import com.lemp.server.database.OfflineMessageDBHelper;
 
 import javax.websocket.Session;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class SessionActor extends UntypedActor {
 
     private Gson gson = new Gson();
     private Session session;
-
+    
     public SessionActor(Session session) {
         this.session = session;
         ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
@@ -37,7 +37,17 @@ public class SessionActor extends UntypedActor {
     @Override
     public void preStart() {
         System.out.println(session.getUserProperties().get("identity") + " starting...");
-        List<String> offlineMessages = DBHelper.getOfflineMessagesAsString((String) session.getUserProperties().get("identity"), true);
+        deliverOfflineMessages();
+    }
+
+    @Override
+    public void postStop() {
+        System.out.println(session.getUserProperties().get("identity") + " stopped...");
+    }
+
+    private void deliverOfflineMessages() {
+        List<String> offlineMessages = OfflineMessageDBHelper.getInstance()
+                                                             .getOfflineMessagesAsString((String) session.getUserProperties().get("identity"), true);
         Iterator<String> iterator = offlineMessages.iterator();
         while(iterator.hasNext()) {
             String message = iterator.next();
@@ -47,10 +57,5 @@ public class SessionActor extends UntypedActor {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void postStop() {
-        System.out.println(session.getUserProperties().get("identity") + " stopped...");
     }
 }

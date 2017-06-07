@@ -19,6 +19,13 @@ public class Response {
     private Broadcast br;
     private Error.Type e;
 
+    public Response() {
+    }
+
+    public Response(Error.Type e) {
+        this.e = e;
+    }
+
     public String getId() {
         return id;
     }
