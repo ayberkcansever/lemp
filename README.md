@@ -5,20 +5,20 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
 2. Information
 3. Message
 
-#### 1. REQUEST
+1. REQUEST
 Every request, except logout request has a response: Success or Error covered in section 1.9
 
 A response may have a content or may be empty (only success or error)
 
-1.1. Authentication Request/Response
+    1. Authentication Request/Response
 
-    1.1.1. Login Request
+        1. Login Request
   
   ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```
   
   ```{ rp:{id:"id", r:0|1} }```
   
-    1.1.2. Logout Request
+        2. Logout Request
   
   ```{ rq:{id:”id”, lo:{r:"reason"}} } ```
  
