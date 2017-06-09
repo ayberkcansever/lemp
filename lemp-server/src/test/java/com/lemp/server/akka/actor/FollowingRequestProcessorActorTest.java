@@ -1,7 +1,6 @@
 package com.lemp.server.akka.actor;
 
 import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.TestKit;
 import com.google.gson.Gson;
@@ -11,8 +10,6 @@ import com.lemp.packet.Response;
 import com.lemp.server.BaseTest;
 import com.lemp.server.RequestFactory;
 import com.lemp.server.akka.object.SessionRequest;
-import com.lemp.server.cache.CacheHolder;
-import com.lemp.server.database.AbstractDBHelper;
 import com.lemp.server.database.FollowerDBHelper;
 import com.lemp.server.database.dbo.Followee;
 import com.lemp.server.database.dbo.Follower;
@@ -23,55 +20,26 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import scala.concurrent.duration.Duration;
 
-import javax.websocket.RemoteEndpoint;
-import javax.websocket.Session;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by AyberkC on 07.06.2017.
  */
 public class FollowingRequestProcessorActorTest extends BaseTest {
 
-    private static Session session;
-    private static RemoteEndpoint.Basic remote;
-
     @BeforeClass
     public static void setup() {
-        AbstractDBHelper.init(new String[]{"127.0.0.1"}, "lemp_test");
-        CacheHolder.init();
-        if(system == null) {
-            system = ActorSystem.create();
-        }
-        session = mock(Session.class);
-        given(session.getUserProperties()).willReturn(new HashMap<>());
-        remote = mock(RemoteEndpoint.Basic.class);
-        given(session.getBasicRemote()).willReturn(remote);
-    }
-
-    @Test
-    public void testLogoutRequestProcessorActor() throws InterruptedException, IOException {
-        new TestKit(system) {{
-            Props props = Props.create(LogoutRequestProcessorActor.class);
-            ActorRef actor = system.actorOf(props);
-            Request request = RequestFactory.getLogoutRequest("id", "i'm bored...");
-            actor.tell(new SessionRequest(request, session), ActorRef.noSender());
-            TimeUnit.SECONDS.sleep(1);
-            Mockito.verify(session).close();
-        }};
+        setUp();
     }
 
     @Test
     public void testRegisterAndRemoveFollowees() throws InterruptedException, IOException {
         new TestKit(system) {{
             truncateFollowTables();
-            authenticateUser(session, remote, testUsername, testUserPassword);
+            authenticateUser(session, testUsername, testUserPassword);
 
             Props props = Props.create(FollowingRequestProcessorActor.class);
             ActorRef actor = system.actorOf(props);
@@ -96,6 +64,7 @@ public class FollowingRequestProcessorActorTest extends BaseTest {
             TimeUnit.SECONDS.sleep(1);
             Assert.assertEquals(0, FollowerDBHelper.getInstance().getUsersFollowees(testUsername).size());
             Assert.assertEquals(0, FollowerDBHelper.getInstance().getUsersFollowers("followee1").size());
+            logoutUser(session);
         }};
     }
 
@@ -103,7 +72,7 @@ public class FollowingRequestProcessorActorTest extends BaseTest {
     public void testUpdateFollowee() throws InterruptedException, IOException {
         new TestKit(system) {{
             truncateFollowTables();
-            authenticateUser(session, remote, testUsername, testUserPassword);
+            authenticateUser(session, testUsername, testUserPassword);
 
             Props props = Props.create(FollowingRequestProcessorActor.class);
             ActorRef actor = system.actorOf(props);
@@ -130,9 +99,11 @@ public class FollowingRequestProcessorActorTest extends BaseTest {
             followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee2");
             Assert.assertEquals(1, followerList.size());
             Assert.assertTrue(followerList.get(0).getNick().equals("newnick2"));
+
+            FollowerDBHelper.getInstance().deleteUsersAllFollowees("testuser1");
+            logoutUser(session);
         }};
     }
-
 
     @AfterClass
     public static void teardown() {

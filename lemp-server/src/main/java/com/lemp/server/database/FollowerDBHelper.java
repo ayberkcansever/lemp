@@ -69,6 +69,10 @@ public class FollowerDBHelper extends AbstractDBHelper {
             if(existingFolloweeList == null) {
                 existingFolloweeList = new ArrayList<>();
             }
+            // first of all remove the existing followees if exists
+            for(Followee followee : insertedFollowees) {
+                existingFolloweeList.remove(followee);
+            }
             existingFolloweeList.addAll(insertedFollowees);
             CacheHolder.getFolloweeCache().put(follower, existingFolloweeList);
         } catch (Exception e) {
@@ -95,6 +99,8 @@ public class FollowerDBHelper extends AbstractDBHelper {
             if(existingFollowerList == null) {
                 existingFollowerList = new ArrayList<>();
             }
+            // firstly remove the follower if it already exists
+            existingFollowerList.remove(follower);
             existingFollowerList.add(follower);
             CacheHolder.getFollowerCache().put(follower.getFollowee(), existingFollowerList);
         } catch (Exception e) {
@@ -109,8 +115,10 @@ public class FollowerDBHelper extends AbstractDBHelper {
     }
 
     public void insertFollowerList(String followee, List<Follower> followerList) {
+        List<Follower> insertedFollowers = new ArrayList<>();
         for(Follower follower : followerList) {
             session.execute(insertFollower.bind(followee, follower.getFollower(), follower.getNick()));
+            insertedFollowers.add(follower);
         }
         Lock lock = CacheHolder.getFollowerCache().lock(followee);
         try {
@@ -118,6 +126,10 @@ public class FollowerDBHelper extends AbstractDBHelper {
             List<Follower> existingFollowerList = CacheHolder.getFollowerCache().get(followee);
             if(existingFollowerList == null) {
                 existingFollowerList = new ArrayList<>();
+            }
+            // first of all remove the existing followers if exists
+            for(Follower follower : insertedFollowers) {
+                existingFollowerList.remove(follower);
             }
             existingFollowerList.addAll(followerList);
             CacheHolder.getFollowerCache().put(followee, existingFollowerList);
@@ -235,13 +247,18 @@ public class FollowerDBHelper extends AbstractDBHelper {
         session.execute(updateFollowee.bind(newNick, follower, followee));
         CacheHolder.getFolloweeCache().invoke(follower, (CacheEntryProcessor<String, List<Followee>, Object>) (mutableEntry, objects) -> {
             List<Followee> existingList = mutableEntry.getValue();
-            String followee1 = (String) objects[0];
-            String newNick1 = (String) objects[1];
-            for(Followee followeeObj : existingList) {
-                if(followee1.equals(followeeObj.getFollowee())) {
-                    followeeObj.setNick(newNick1);
-                    break;
+            if(existingList != null) {
+                String followee1 = (String) objects[0];
+                String newNick1 = (String) objects[1];
+                for (Followee followeeObj : existingList) {
+                    if (followee1.equals(followeeObj.getFollowee())) {
+                        followeeObj.setNick(newNick1);
+                        break;
+                    }
                 }
+            } else {
+                existingList = new ArrayList<>();
+                existingList.add(new Followee(follower, followee, newNick));
             }
             mutableEntry.setValue(existingList);
             return null;
@@ -254,13 +271,18 @@ public class FollowerDBHelper extends AbstractDBHelper {
         session.execute(updateFollower.bind(newNick, followee, follower));
         CacheHolder.getFollowerCache().invoke(followee, (CacheEntryProcessor<String, List<Follower>, Object>) (mutableEntry, objects) -> {
             List<Follower> existingList = mutableEntry.getValue();
-            String follower1 = (String) objects[0];
-            String newNick1 = (String) objects[1];
-            for(Follower followerObj : existingList) {
-                if(follower1.equals(followerObj.getFollower())) {
-                    followerObj.setNick(newNick1);
-                    break;
+            if(existingList != null) {
+                String follower1 = (String) objects[0];
+                String newNick1 = (String) objects[1];
+                for (Follower followerObj : existingList) {
+                    if (follower1.equals(followerObj.getFollower())) {
+                        followerObj.setNick(newNick1);
+                        break;
+                    }
                 }
+            } else {
+                existingList = new ArrayList<>();
+                existingList.add(new Follower(followee, follower, newNick));
             }
             mutableEntry.setValue(existingList);
             return null;

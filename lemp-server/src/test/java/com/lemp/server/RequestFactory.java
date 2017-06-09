@@ -32,7 +32,7 @@ public class RequestFactory {
         return request;
     }
 
-    public static Request getAddFolloweesRequest(String id,int size){
+    public static Request getAddFolloweesRequest(String id, int size){
         Request request = new Request();
         request.setId(id);
         List<User> followeeList = new ArrayList<>(size);
