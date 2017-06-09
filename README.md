@@ -22,17 +22,13 @@ A response may have a content or may be empty (only success or error)
   ```{ rq:{id:”id”, lo:{r:"reason"}} } ```
  
 ##### 1.2. User Followings Requests
-  ###### 1.2.1. Register User's Followings Request
-  
-  ```{ rq:{id:”id”, f:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} } ```
-    
-  ###### 1.2.2. Add New Following Request
+  ###### 1.2.1. Add Followings Request
   
   ```{ rq:{id:”id”, af:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
-  ###### 1.2.3. Remove Following Request
+  ###### 1.2.2. Remove Following Request
   
   ```{ rq:{id:”id”, rf:[“f1”,”f2”]} }  ```
-  ###### 1.2.4. Update Following Request
+  ###### 1.2.3. Update Following Request
   
   ```{ rq:{id:”id”, uf:[{u:“f1”,n:”nick1”},{u:“f2”,n:”nick2”},{u:“f2”,n:”nick2”}]} }  ```
 ##### 1.3. State (Last Offline) Request/Response
