@@ -10,13 +10,23 @@ import com.google.gson.Gson;
 public abstract class AbstractDBHelper {
 
     protected static Cluster cluster;
-    protected static Session session;
+    public static Session session;
 
     protected static Gson gson = new Gson();
 
-    public static void init(){
-        cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
-        session = cluster.connect("lemp");
+    protected AbstractDBHelper() { }
+
+    public static void init(String[] contactPoints, String keyspace ){
+        if(cluster == null) {
+            Cluster.Builder clusterBuilder = Cluster.builder();
+            for(String contactPoint : contactPoints) {
+                clusterBuilder.addContactPoint(contactPoint);
+            }
+            cluster = clusterBuilder.build();
+        }
+        if(session == null) {
+            session = cluster.connect(keyspace);
+        }
     }
 
 }

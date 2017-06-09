@@ -8,6 +8,14 @@ public class User {
     private String u;
     private String n;
 
+    public User() {
+    }
+
+    public User(String u, String n) {
+        this.u = u;
+        this.n = n;
+    }
+
     public String getU() {
         return u;
     }

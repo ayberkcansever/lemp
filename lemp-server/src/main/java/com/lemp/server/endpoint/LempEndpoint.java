@@ -6,6 +6,7 @@ import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.lemp.server.Application;
 import com.lemp.server.akka.LempRouters;
+import com.lemp.server.akka.actor.ActorProperties;
 import com.lemp.server.akka.object.ClientMessage;
 import org.glassfish.tyrus.core.wsadl.model.Endpoint;
 
@@ -26,8 +27,8 @@ public class LempEndpoint extends Endpoint {
 
     @OnClose
     public void onClose(Session session, CloseReason reason) {
-        String identity = (String) session.getUserProperties().get("identity");
-        DistributedPubSub.get(Application.actorSystem).mediator().tell(new DistributedPubSubMediator.Send("/user/" + identity, PoisonPill.getInstance(), false), ActorRef.noSender());
+        String identity = (String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY);
+        DistributedPubSub.get(Application.getActorSystem()).mediator().tell(new DistributedPubSubMediator.Send("/user/" + identity, PoisonPill.getInstance(), false), ActorRef.noSender());
         System.out.println(session.getId() + " " + identity + " closed.");
     }
 
@@ -39,7 +40,7 @@ public class LempEndpoint extends Endpoint {
 
     @OnMessage
     public void onMessage(String message, Session session) {
-        LempRouters.packetProcessorRouter.tell(new ClientMessage(message, session), ActorRef.noSender());
+        LempRouters.getPacketProcessorRouter().tell(new ClientMessage(message, session), ActorRef.noSender());
     }
 
 }

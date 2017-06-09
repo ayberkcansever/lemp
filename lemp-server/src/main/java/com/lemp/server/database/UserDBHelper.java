@@ -24,7 +24,7 @@ public class UserDBHelper extends AbstractDBHelper {
         }
     }
 
-    private static PreparedStatement loadUserPs;
+    private PreparedStatement loadUserPs;
 
     private UserDBHelper() {
         loadUserPs = session.prepare("select * from user where username = ?");
@@ -35,7 +35,7 @@ public class UserDBHelper extends AbstractDBHelper {
     }
 
     public User getUser(String username) {
-        User user = CacheHolder.userCache.get(username);
+        User user = CacheHolder.getUserCache().get(username);
         if(user == null) {
             ResultSet resultSet = session.execute(loadUserPs.bind(username));
             Iterator<Row> rows = resultSet.iterator();
@@ -44,7 +44,7 @@ public class UserDBHelper extends AbstractDBHelper {
                 String u = r.getString("username");
                 String p = r.getString("password");
                 user = new User(u, p);
-                CacheHolder.userCache.put(username, user);
+                CacheHolder.getUserCache().put(username, user);
                 break;
            }
         }

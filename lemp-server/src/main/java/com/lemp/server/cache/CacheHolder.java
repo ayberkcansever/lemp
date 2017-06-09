@@ -14,16 +14,32 @@ import java.util.List;
  */
 public class CacheHolder {
 
-    public static Ignite ignite;
-    public static IgniteCache<String, User> userCache;
-    public static IgniteCache<String, List<Followee>> followeeCache;
-    public static IgniteCache<String, List<Follower>> followerCache;
+    private static Ignite ignite;
+    private static IgniteCache<String, User> userCache;
+    private static IgniteCache<String, List<Followee>> followeeCache;
+    private static IgniteCache<String, List<Follower>> followerCache;
 
-    public static void init(){
+    private CacheHolder() { }
+
+    public static void init() {
+        if(ignite != null) {
+            return;
+        }
         ignite = Ignition.start("ignite-config.xml");
         userCache = ignite.getOrCreateCache("userCache");
         followeeCache = ignite.getOrCreateCache("followerCache");
         followerCache = ignite.getOrCreateCache("followeeCache");
     }
 
+    public static IgniteCache<String, User> getUserCache() {
+        return userCache;
+    }
+
+    public static IgniteCache<String, List<Followee>> getFolloweeCache() {
+        return followeeCache;
+    }
+
+    public static IgniteCache<String, List<Follower>> getFollowerCache() {
+        return followerCache;
+    }
 }

@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.lemp.object.Authentication;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
-import com.lemp.server.Application;
 import com.lemp.server.akka.object.SessionRequest;
 import com.lemp.server.database.UserDBHelper;
 
@@ -34,8 +33,8 @@ public class AuthenticationRequestProcessorActor extends UntypedActor {
                 response.setId(request.getId());
                 response.setResult(UserDBHelper.getInstance().isAuthenticated(identity, token) ? 1 : 0);
                 if(response.getResult() == 1) {
-                    session.getUserProperties().put("identity", identity);
-                    Application.actorSystem.actorOf(Props.create(SessionActor.class, session), identity);
+                    session.getUserProperties().put(ActorProperties.IDENTITY_KEY, identity);
+                    getContext().system().actorOf(Props.create(SessionActor.class, session), identity);
                 }
                 session.getBasicRemote().sendText(gson.toJson(response));
             } catch (Exception e) {

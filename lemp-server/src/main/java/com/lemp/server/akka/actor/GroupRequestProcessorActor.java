@@ -26,39 +26,29 @@ public class GroupRequestProcessorActor extends UntypedActor {
 
                 // todo: fill them
                 // Create Group Request
-                if(request.getG().getT().equals(Group.RequestType.create.getKey())) {
-
+                switch(Group.RequestType.valueOf(request.getG().getT())) {
+                    case create:
+                        break;
+                    case add:
+                        break;
+                    case banish:
+                        break;
+                    case leave:
+                        break;
+                    case terminate:
+                        break;
+                    case information:
+                        break;
+                    case add_admin:
+                        break;
+                    case get_admins:
+                        break;
+                    default:
+                        break;
                 }
-                // Add user to group Request
-                else if(request.getG().getT().equals(Group.RequestType.add.getKey())) {
 
-                }
-                // Banish user from group Request
-                else if(request.getG().getT().equals(Group.RequestType.banish.getKey())) {
-
-                }
-                // Leave from group Request
-                else if(request.getG().getT().equals(Group.RequestType.leave.getKey())) {
-
-                }
-                // Terminate group Request
-                else if(request.getG().getT().equals(Group.RequestType.terminate.getKey())) {
-
-                }
-                // Group Information Request
-                else if(request.getG().getT().equals(Group.RequestType.information.getKey())) {
-
-                }
-                // Add admin Request
-                else if(request.getG().getT().equals(Group.RequestType.add_admin.getKey())) {
-
-                }
-                // Get admins Request
-                else if(request.getG().getT().equals(Group.RequestType.get_admins.getKey())) {
-
-                }
                 // Name Request
-                else if(request.getN() != null) {
+                if(request.getN() != null) {
                     if(request.getN().getT().equals(Request.Type.set.getKey())) {
 
                     } else if(request.getN().getT().equals(Request.Type.get.getKey())) {

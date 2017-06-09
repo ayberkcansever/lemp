@@ -17,10 +17,10 @@ import javax.websocket.DeploymentException;
  */
 public class Application {
 
-    public static ActorSystem actorSystem;
+    private static ActorSystem actorSystem;
 
     public static void main(String[] args) throws DeploymentException {
-        AbstractDBHelper.init();
+        AbstractDBHelper.init(new String[]{"127.0.0.1"}, "lemp");
         CacheHolder.init();
 
         Server server = new Server("localhost", 8025, "/", null, LempEndpoint.class);
@@ -33,6 +33,10 @@ public class Application {
         actorSystem.actorOf(Props.create(ClusterListener.class), "clusterListener");
 
         actorSystem.eventStream().subscribe(actorSystem.actorOf(Props.create(DeadLetterActor.class)), DeadLetter.class);
+    }
+
+    public static ActorSystem getActorSystem() {
+        return actorSystem;
     }
 
 }

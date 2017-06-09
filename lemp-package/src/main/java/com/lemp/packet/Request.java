@@ -30,7 +30,6 @@ public class Request extends Packet{
 
     private Authentication a;
     private Logout lo;
-    private List<User> f;
     private List<User> af;
     private List<User> uf;
     private List<String> rf;
@@ -60,14 +59,6 @@ public class Request extends Packet{
 
     public void setLo(Logout lo) {
         this.lo = lo;
-    }
-
-    public List<User> getF() {
-        return f;
-    }
-
-    public void setF(List<User> f) {
-        this.f = f;
     }
 
     public List<User> getAf() {

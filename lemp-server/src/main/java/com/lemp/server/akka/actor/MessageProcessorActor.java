@@ -15,7 +15,7 @@ public class MessageProcessorActor extends UntypedActor {
     private ActorRef mediator;
 
     public MessageProcessorActor() {
-        mediator = DistributedPubSub.get(Application.actorSystem).mediator();
+        mediator = DistributedPubSub.get(Application.getActorSystem()).mediator();
     }
 
     @Override

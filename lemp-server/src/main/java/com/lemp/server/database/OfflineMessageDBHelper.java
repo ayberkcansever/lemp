@@ -25,9 +25,9 @@ public class OfflineMessageDBHelper extends AbstractDBHelper {
         }
     }
 
-    private static PreparedStatement offlineInsertPs;
-    private static PreparedStatement offlineSelectPs;
-    private static PreparedStatement offlineDeletePs;
+    private PreparedStatement offlineInsertPs;
+    private PreparedStatement offlineSelectPs;
+    private PreparedStatement offlineDeletePs;
 
     private OfflineMessageDBHelper() {
         offlineInsertPs = session.prepare("insert into offline (receiver, sender, id, message, sent_time) values(?, ?, ?, ?, ?)");
@@ -39,12 +39,12 @@ public class OfflineMessageDBHelper extends AbstractDBHelper {
         return instance;
     }
 
-    public static void insertOfflineMessage(Message message) {
+    public void insertOfflineMessage(Message message) {
         session.execute(offlineInsertPs.bind(message.getR(), message.getS(), message.getId(), gson.toJson(message), new Date()));
     }
 
-    public static List<String> getOfflineMessagesAsString(String receiver, boolean delete) {
-        List<String> list = new ArrayList<String>();
+    public List<String> getOfflineMessagesAsString(String receiver, boolean delete) {
+        List<String> list = new ArrayList<>();
         ResultSet rs = session.execute(offlineSelectPs.bind(receiver));
         for(Row row : rs) {
             list.add(row.getString("message"));
@@ -55,8 +55,8 @@ public class OfflineMessageDBHelper extends AbstractDBHelper {
         return list;
     }
 
-    public static List<Message> getOfflineMessages(String receiver, boolean delete) {
-        List<Message> list = new ArrayList<Message>();
+    public List<Message> getOfflineMessages(String receiver, boolean delete) {
+        List<Message> list = new ArrayList<>();
         for(String msgStr : getOfflineMessagesAsString(receiver, delete)) {
             Datum datum = gson.fromJson(msgStr, Datum.class);
             list.add(datum.getM());
@@ -64,7 +64,7 @@ public class OfflineMessageDBHelper extends AbstractDBHelper {
         return list;
     }
 
-    public static void deleteOfflineMessages(String receiver) {
+    public void deleteOfflineMessages(String receiver) {
         session.execute(offlineDeletePs.bind(receiver));
     }
 }

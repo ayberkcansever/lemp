@@ -64,4 +64,22 @@ public class Followee implements Binarylizable {
         this.followee = binaryReader.readString("followee");
         this.nick = binaryReader.readString("nick");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Followee followee1 = (Followee) o;
+
+        if (follower != null ? !follower.equals(followee1.follower) : followee1.follower != null) return false;
+        return followee != null ? followee.equals(followee1.followee) : followee1.followee == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = follower != null ? follower.hashCode() : 0;
+        result = 31 * result + (followee != null ? followee.hashCode() : 0);
+        return result;
+    }
 }

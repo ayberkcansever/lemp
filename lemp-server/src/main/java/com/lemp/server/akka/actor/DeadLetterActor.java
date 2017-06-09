@@ -15,7 +15,7 @@ public class DeadLetterActor extends UntypedActor {
         if(message instanceof DeadLetter) {
             DeadLetter deadLetter = (DeadLetter) message;
             if(deadLetter.message() instanceof Message) {
-                LempRouters.offlineMessageInserterRouter.tell(deadLetter.message(), ActorRef.noSender());
+                LempRouters.getOfflineMessageInserterRouter().tell(deadLetter.message(), ActorRef.noSender());
             }
         }
     }

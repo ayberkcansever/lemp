@@ -36,26 +36,30 @@ public class SessionActor extends UntypedActor {
 
     @Override
     public void preStart() {
-        System.out.println(session.getUserProperties().get("identity") + " starting...");
+        System.out.println(session.getUserProperties().get(ActorProperties.IDENTITY_KEY) + " starting...");
         deliverOfflineMessages();
     }
 
     @Override
     public void postStop() {
-        System.out.println(session.getUserProperties().get("identity") + " stopped...");
+        System.out.println(session.getUserProperties().get(ActorProperties.IDENTITY_KEY) + " stopped...");
     }
 
     private void deliverOfflineMessages() {
-        List<String> offlineMessages = OfflineMessageDBHelper.getInstance()
-                                                             .getOfflineMessagesAsString((String) session.getUserProperties().get("identity"), true);
-        Iterator<String> iterator = offlineMessages.iterator();
-        while(iterator.hasNext()) {
-            String message = iterator.next();
-            try {
-                session.getBasicRemote().sendText(message);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            List<String> offlineMessages = OfflineMessageDBHelper.getInstance()
+                                                                 .getOfflineMessagesAsString((String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY), true);
+            Iterator<String> iterator = offlineMessages.iterator();
+            while(iterator.hasNext()) {
+                String message = iterator.next();
+                try {
+                    session.getBasicRemote().sendText(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

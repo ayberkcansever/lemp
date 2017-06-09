@@ -11,46 +11,90 @@ import com.lemp.server.akka.actor.*;
  */
 public class LempRouters {
 
-    public static ActorRef packetProcessorRouter;
-    public static ActorRef authenticationRequestProcessorRouter;
-    public static ActorRef logoutRequestProcessorRouter;
-    public static ActorRef messageProcessorRouter;
-    public static ActorRef offlineMessageInserterRouter;
-    public static ActorRef followingRequestRouter;
-    public static ActorRef stateRequestRouter;
-    public static ActorRef personalRequestRouter;
-    public static ActorRef privacyRequestRouter;
-    public static ActorRef groupRequestRouter;
-    public static ActorRef broadcastGroupRequestRouter;
+    private static ActorRef packetProcessorRouter;
+    private static ActorRef authenticationRequestProcessorRouter;
+    private static ActorRef logoutRequestProcessorRouter;
+    private static ActorRef messageProcessorRouter;
+    private static ActorRef offlineMessageInserterRouter;
+    private static ActorRef followingRequestRouter;
+    private static ActorRef stateRequestRouter;
+    private static ActorRef personalRequestRouter;
+    private static ActorRef privacyRequestRouter;
+    private static ActorRef groupRequestRouter;
+    private static ActorRef broadcastGroupRequestRouter;
+
+    private LempRouters() { }
 
     static {
         try {
-            packetProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(PacketProcessorActor.class)),
+            packetProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(PacketProcessorActor.class)),
                     "packetProcessorRouter");
-            logoutRequestProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(LogoutRequestProcessorActor.class)),
+            logoutRequestProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(LogoutRequestProcessorActor.class)),
                     "logoutRequestProcessorRouter");
-            authenticationRequestProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(AuthenticationRequestProcessorActor.class)),
+            authenticationRequestProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(AuthenticationRequestProcessorActor.class)),
                     "authenticationRequestProcessorRouter");
-            messageProcessorRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(MessageProcessorActor.class)),
+            messageProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(MessageProcessorActor.class)),
                     "messageProcessorRouter");
-            offlineMessageInserterRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(OfflineMessageInserterActor.class)),
+            offlineMessageInserterRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(OfflineMessageInserterActor.class)),
                     "offlineMessageInserterRouter");
-            followingRequestRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(FollowingRequestProcessorActor.class)),
+            followingRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(FollowingRequestProcessorActor.class)),
                     "followingRequestRouter");
-            stateRequestRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(StateRequestProcessorActor.class)),
+            stateRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(StateRequestProcessorActor.class)),
                     "stateRequestRouter");
-            personalRequestRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(PersonalRequestProcessorActor.class)),
+            personalRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(PersonalRequestProcessorActor.class)),
                     "personalRequestRouter");
-            privacyRequestRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(PrivacyRequestProcessorActor.class)),
+            privacyRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(PrivacyRequestProcessorActor.class)),
                     "privacyRequestRouter");
-            groupRequestRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(GroupRequestProcessorActor.class)),
+            groupRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(GroupRequestProcessorActor.class)),
                     "groupRequestRouter");
-            broadcastGroupRequestRouter = Application.actorSystem.actorOf(FromConfig.getInstance().props(Props.create(BroadcastGroupRequestProcessorActor.class)),
+            broadcastGroupRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(BroadcastGroupRequestProcessorActor.class)),
                     "broadcastGroupRequestRouter");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public static ActorRef getPacketProcessorRouter() {
+        return packetProcessorRouter;
+    }
 
+    public static ActorRef getAuthenticationRequestProcessorRouter() {
+        return authenticationRequestProcessorRouter;
+    }
+
+    public static ActorRef getLogoutRequestProcessorRouter() {
+        return logoutRequestProcessorRouter;
+    }
+
+    public static ActorRef getMessageProcessorRouter() {
+        return messageProcessorRouter;
+    }
+
+    public static ActorRef getOfflineMessageInserterRouter() {
+        return offlineMessageInserterRouter;
+    }
+
+    public static ActorRef getFollowingRequestRouter() {
+        return followingRequestRouter;
+    }
+
+    public static ActorRef getStateRequestRouter() {
+        return stateRequestRouter;
+    }
+
+    public static ActorRef getPersonalRequestRouter() {
+        return personalRequestRouter;
+    }
+
+    public static ActorRef getPrivacyRequestRouter() {
+        return privacyRequestRouter;
+    }
+
+    public static ActorRef getGroupRequestRouter() {
+        return groupRequestRouter;
+    }
+
+    public static ActorRef getBroadcastGroupRequestRouter() {
+        return broadcastGroupRequestRouter;
+    }
 }
