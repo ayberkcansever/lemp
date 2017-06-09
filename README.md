@@ -12,9 +12,9 @@ A response may have a content or may be empty (only success or error)
 
 ##### 1.1. Authentication Request/Response
 
-    1.1.1. Login Request
+  ##### 1.1.1. Login Request
   
-  ```{ rq:{id:”id”,a:{i:”identity”,t:”token”}} } ```
+  ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```
   
   ```{ rp:{id:”id”, r:0|1} }```
   
