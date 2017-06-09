@@ -25,13 +25,13 @@ A response may have a content or may be empty (only success or error)
 ##### 1.2. User Followings Requests
   ###### 1.2.1. Add Followings Request
   
-  ```{ rq:{id:"id", af:[{u:“f1",n:"nick1"},{u:“f2",n:"nick2"},{u:“f2",n:"nick2"}]} }  ```
+  ```{ rq:{id:"id", af:[{u:"f1",n:"nick1"},{u:"f2",n:"nick2"},{u:"f2",n:"nick2"}]} }  ```
   ###### 1.2.2. Remove Following Request
   
-  ```{ rq:{id:"id", rf:[“f1","f2"]} }  ```
+  ```{ rq:{id:"id", rf:["f1","f2"]} }  ```
   ###### 1.2.3. Update Following Request
   
-  ```{ rq:{id:"id", uf:[{u:“f1",n:"nick1"},{u:“f2",n:"nick2"},{u:“f2",n:"nick2"}]} }  ```
+  ```{ rq:{id:"id", uf:[{u:"f1",n:"nick1"},{u:"f2",n:"nick2"},{u:"f2",n:"nick2"}]} }  ```
 ##### 1.3. State (Last Offline) Request/Response
 
   ```{ rq:{id:"id", s:{u:"username"}} } ```
@@ -69,13 +69,13 @@ A response may have a content or may be empty (only success or error)
 ##### 1.6. Group Requests
   ###### 1.6.1. Create Group Request
     
-  ```{ rq:{id:"id", g:{t:"c", i:"id",n:"groupname", p:"picture", m:[“member1", “member2", “member3"]}}}  ```
+  ```{ rq:{id:"id", g:{t:"c", i:"id",n:"groupname", p:"picture", m:["member1", "member2", "member3"]}}}  ```
   ###### 1.6.2. Add Users to Group Request
   
-  ```{ rq:{id:"id", g:{t:"a", i:"id",m:[“member1", “member2", “member3"]}}}  ```
+  ```{ rq:{id:"id", g:{t:"a", i:"id",m:["member1", "member2", "member3"]}}}  ```
   ###### 1.6.3. Banish Users from Group Request
   
-  ```{ rq:{id:"id", g:{t:"b",i:"id",m:[“member1", “member2", “member3"]}}}   ```
+  ```{ rq:{id:"id", g:{t:"b",i:"id",m:["member1", "member2", "member3"]}}}   ```
   ###### 1.6.4. Leave from Group Request
   
   ```{ rq:{id:"id", g:{t:"l", i:"id"}}}  ```
@@ -86,15 +86,15 @@ A response may have a content or may be empty (only success or error)
   
   ```{ rq:{id:"id", g:{t:"i", i:"id"}}}    ```
     
-  ```{ rp:{id:"id", g:{i:"id",c:"creationdate",mt:"mutetill",m:[“member1", “member2","member3"]}} }   ```
+  ```{ rp:{id:"id", g:{i:"id",c:"creationdate",mt:"mutetill",m:["member1", "member2","member3"]}} }   ```
   ###### 1.6.7. Admins Add Request
   
-  ```{ rq:{id:"id", g:{t:"aad", i:"id", ad:[“member1",“member2"]}}}   ```
+  ```{ rq:{id:"id", g:{t:"aad", i:"id", ad:["member1","member2"]}}}   ```
   ###### 1.6.8. Admins Get Request/Response
   
   ```{ rq:{id:"id", g:{t:"ad", i:"id"}}}  ```
     
-  ```{ rp:{id:"id", g:{i:"id",ad:[“member1", “member2","member3"]}} }   ```
+  ```{ rp:{id:"id", g:{i:"id",ad:["member1", "member2","member3"]}} }   ```
   ###### 1.6.9. Picture Set Request
   
   ```{ rq:{id:"id", p:{t:"s", i:"id", v:"base64value"}} }  ```
@@ -122,13 +122,13 @@ A response may have a content or may be empty (only success or error)
 ##### 1.7. Broadcast Group Requests
   ###### 1.7.1. Create Broadcast Group Request
   
-  ```{ rq:{id:"id", br:{t:"c", i:"id",n:"broadcastname", p:"picture", m:[“member1", “member2", “member3"]}}}   ```
+  ```{ rq:{id:"id", br:{t:"c", i:"id",n:"broadcastname", p:"picture", m:["member1", "member2", "member3"]}}}   ```
   ###### 1.7.2. Add Users to Broadcast Group Request
   
-  ```{ rq:{id:"id", br:{t:"a", i:"id",m:[“member1", “member2", “member3"]}}}   ```
+  ```{ rq:{id:"id", br:{t:"a", i:"id",m:["member1", "member2", "member3"]}}}   ```
   ###### 1.7.3. Banish Users from Broadcast Group Request
   
-  ```{ rq:{id:"id", br:{t:"b",i:"id",m:[“member1", “member2", “member3"]}}}  ```
+  ```{ rq:{id:"id", br:{t:"b",i:"id",m:["member1", "member2", "member3"]}}}  ```
   ###### 1.7.4. Terminate Broadcast Group Request
   
   ```{ rq:{id:"id", br:{t:"t", i:"id"}}}  ```
@@ -136,7 +136,7 @@ A response may have a content or may be empty (only success or error)
   
   ```{ rq:{id:"id", br:{t:"i", i:"id"}}}   ```
     
-  ```{ rp:{id:"id", br:{i:"id",c:"creationdate",n:"name",m:[“member1", “member2","member3"]}} }   ```
+  ```{ rp:{id:"id", br:{i:"id",c:"creationdate",n:"name",m:["member1", "member2","member3"]}} }   ```
   ###### 1.7.6. Picture Set Request
   
   ```{ rq:{id:"id", p:{t:"s", b:"id", v:"base64value"}} }   ```
@@ -192,11 +192,11 @@ A response may have a content or may be empty (only success or error)
    
   ###### 2.2.2.  Group member added info
 
-  ```{ i:{id:"id", g:{t:"a",i:"id",m:[“member1", “member2", “member3"]} } }    ```
+  ```{ i:{id:"id", g:{t:"a",i:"id",m:["member1", "member2", "member3"]} } }    ```
     
   ###### 2.2.3.  Group user banished info
 
-  ```{ i:{id:"id", g:{t:"b",i:"id",m:“member1"} } }    ```
+  ```{ i:{id:"id", g:{t:"b",i:"id",m:"member1"} } }    ```
   
   ###### 2.2.4.  Group terminated info
 
