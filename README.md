@@ -5,7 +5,7 @@ LEMP is a new insfrastructure for instant messaging. It is based on JSON. There 
 2. Information
 3. Message
 
-__ #### 1. REQUEST __
+#### 1. REQUEST 
 
 Every request, except logout requests has a response (Success or Error), covered in section 1.9
 
