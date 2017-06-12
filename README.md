@@ -352,7 +352,7 @@ Id of the response must be same as the id of the request.
 
 | Type          | Packet      | 
 | ------------- |-------------
-| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content", st:sent_time} }    ``` | 
+| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t/p/v/a/l", c:"content", st:sent_time} }    ``` | 
   
   - Message Types
       * t: text
