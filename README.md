@@ -1,5 +1,5 @@
 # LEMP (Light Extensible Messaging Protocol) Server
-LEMP is a new insfrastructure for instant messaging. Its packet format is based on JSON. It can be thought as a lighter alternative to XMPP (Extensible Messaging and Presence Protocol). It does not have any pretensions to be alternative of SIP, MQTT or AMQP vs. It defines some packet formats for its purposes. It is not a transport protocol in full. 
+LEMP is a new insfrastructure for instant messaging. Its packet format is based on JSON. It can be thought as a lighter alternative to XMPP (Extensible Messaging and Presence Protocol). It does not have any pretensions to be alternative of SIP, MQTT, AMQP vs. It defines its packet formats for its purposes. It is not a transport protocol indeed.
 
 Presence of a client is determined by its authentication. No packet formats exist for controlling presence as in XMPP. If a client is authenticated to server then it is considered as "online". Store-Forward mechanism exists for messages of offline members. The messages sent to offline members are stored and they are forwarded to the client when it authenticates.
 
