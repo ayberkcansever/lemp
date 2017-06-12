@@ -1,9 +1,9 @@
 # LEMP (Light Extensible Messaging Protocol) Server
 LEMP is a new insfrastructure for instant messaging. Its packet format is based on JSON. It can be thought as a ligther alternative to XMPP (Extensible Messaging and Presence Protocol). It does not have any pretensions to be alternative of SIP, MQTT or AMQP vs. It defines some packet formats for its purposes. It is not a transport protocol in full. 
 
-Presence of a client is determined by its authentication. No packet formats exist for controlling presence as in XMPP. If a client is authenticated to server then it is considered as "online". Store-Forward mechanism exists for messages of offline members. The messages sent to offline members are stored and the are forwarded to the client when it authenticates.
+Presence of a client is determined by its authentication. No packet formats exist for controlling presence as in XMPP. If a client is authenticated to server then it is considered as "online". Store-Forward mechanism exists for messages of offline members. The messages sent to offline members are stored and they are forwarded to the client when it authenticates.
 
-This project is Java implementation of LEMP server. The server is implemeted to have websocket interface for packet flow. It uses Cassandra as the persistence layer and Apache Ignite as the cache layer.
+This project is a Java implementation of LEMP server. The server is implemeted to have websocket interface for packet flow. It uses Cassandra as the persistence layer and Apache Ignite as the cache layer.
 
 There are 3 main datum types in LEMP. 
 
