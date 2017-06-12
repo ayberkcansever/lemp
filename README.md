@@ -26,14 +26,9 @@ A response may have a content or may be empty (only success or error)
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ``` |
-| Response      | ```{ rp:{id:"id", r:0&#124;1} }```                      |
-
-     
-     
-    Request | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```
-    Response | ```{ rp:{id:"id", r:0|1} }```
+| Response      | ```{ rp:{id:"id", r:0/1} }```                      |
   
-   ###### 1.1.2 Logout Request
+  ###### 1.1.2 Logout Request
   
   ```{ rq:{id:"id", lo:{r:"reason"}} } ```
  
