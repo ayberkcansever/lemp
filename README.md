@@ -61,91 +61,146 @@ An authentication request is sent to the server after the persistence network co
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", s:{u:"username"}} } ``` |
-| Response      | ```{ rp:{id:"id", s:{u:"username", v:"0|unixtime"}} }  ``` |
+| Response      | ```{ rp:{id:"id", s:{u:"username", v:"0/unixtime"}} }  ``` |
     
   
 ##### 1.4. Personal Requests
   ###### 1.4.1. Personal Information Request/Response
   
-  ```{ rq:{id:"id", i:{u:"username"}} }  ```
-   
-  ```{ rp:{id:"id", i:{u:"username", c:"creationdate", r:"registerdate"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", i:{u:"username"}} }  ``` |
+| Response      | ```{ rp:{id:"id", i:{u:"username", c:"creationdate", r:"registerdate"}} }   ``` |
+  
   ###### 1.4.2. Picture Set Request
   
-  ```{ rq:{id:"id", p:{t:"s", u:"username", v:"base4value"}} }  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", p:{t:"s", u:"username", v:"base4value"}} }  ``` |
+    
   ###### 1.4.3. Picture Get Request/Response
   
-  ```{ rq:{id:"id", p:{t:"g", u:"username"}} }  ```
-   
-  ```{ rp:{id:"id", p:{u:"username", v:"base64value"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", p:{t:"g", u:"username"}} }  ``` |
+| Response      | ```{ rp:{id:"id", p:{u:"username", v:"base64value"}} }   ``` |
+  
   ###### 1.4.4. Status Set Request
   
-  ```{ rq:{id:"id", st:{t:"s", u:"username", s:"status"}} }  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", st:{t:"s", u:"username", s:"status"}} }  ``` |
+
   ###### 1.4.5. Status Get Request/Response
   
-  ```{ rq:{id:"id", st:{t:"g", u:"username"}} }  ```
-    
-  ```{ rp:{id:"id", st:{u:"username", s:"status"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", st:{t:"g", u:"username"}} }  ``` |
+| Response      | ```{ rp:{id:"id", st:{u:"username", s:"status"}} }   ``` |
+  
 ##### 1.5. Privacy Requests
   ###### 1.5.1. Block Request
   
-  ```{ rq:{id:"id", b:{u:"username"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", b:{u:"username"}} }   ``` |
+  
   ###### 1.5.2. Unblock Request
   
-  ```{ rq:{id:"id", ub:{u:"username"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", ub:{u:"username"}} }   ``` |
+  
 ##### 1.6. Group Requests
   ###### 1.6.1. Create Group Request
-    
-  ```{ rq:{id:"id", g:{t:"c", i:"id",n:"groupname", p:"picture", m:["member1", "member2", "member3"]}}}  ```
+  
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       |  ```{ rq:{id:"id", g:{t:"c", i:"id",n:"groupname", p:"picture", m:["member1", "member2", "member3"]}}}  ``` |
+     
   ###### 1.6.2. Add Users to Group Request
   
-  ```{ rq:{id:"id", g:{t:"a", i:"id",m:["member1", "member2", "member3"]}}}  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       |  ```{ rq:{id:"id", g:{t:"a", i:"id",m:["member1", "member2", "member3"]}}}  ``` |
+  
   ###### 1.6.3. Banish Users from Group Request
   
-  ```{ rq:{id:"id", g:{t:"b",i:"id",m:["member1", "member2", "member3"]}}}   ```
-  ###### 1.6.4. Leave from Group Request
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       |  ```{ rq:{id:"id", g:{t:"b",i:"id",m:["member1", "member2", "member3"]}}}   ``` |
   
-  ```{ rq:{id:"id", g:{t:"l", i:"id"}}}  ```
+  ###### 1.6.4. Leave from Group Request
+
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       |  ```{ rq:{id:"id", g:{t:"l", i:"id"}}}  ``` |
+  
   ###### 1.6.5. Terminate Group Request
   
-  ```{ rq:{id:"id", g:{t:"t", i:"id"}}}   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       |  ```{ rq:{id:"id", g:{t:"t", i:"id"}}}   ``` |
+  
   ###### 1.6.6. Group Information Request/Response
   
-  ```{ rq:{id:"id", g:{t:"i", i:"id"}}}    ```
-    
-  ```{ rp:{id:"id", g:{i:"id",c:"creationdate",mt:"mutetill",m:["member1", "member2","member3"]}} }   ```
-  ###### 1.6.7. Admins Add Request
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", g:{t:"i", i:"id"}}}    ``` |
+| Response      | ```{ rp:{id:"id", g:{i:"id",c:"creationdate",mt:"mutetill",m:["member1", "member2","member3"]}} }   ``` |
   
-  ```{ rq:{id:"id", g:{t:"aad", i:"id", ad:["member1","member2"]}}}   ```
+  ###### 1.6.7. Admins Add Request
+
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", g:{t:"aad", i:"id", ad:["member1","member2"]}}}   ``` |
+  
   ###### 1.6.8. Admins Get Request/Response
   
-  ```{ rq:{id:"id", g:{t:"ad", i:"id"}}}  ```
-    
-  ```{ rp:{id:"id", g:{i:"id",ad:["member1", "member2","member3"]}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", g:{t:"ad", i:"id"}}}  ``` |
+| Response      | ```{ rp:{id:"id", g:{i:"id",ad:["member1", "member2","member3"]}} }   ``` |
+  
   ###### 1.6.9. Picture Set Request
   
-  ```{ rq:{id:"id", p:{t:"s", i:"id", v:"base64value"}} }  ```
-
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", p:{t:"s", i:"id", v:"base64value"}} }  ``` |
+  
   ###### 1.6.10. Picture Get Request/Response
   
-  ```{ rq:{id:"id", p:{t:"g", i:"id"}} }   ```
-    
-  ```{ rp:{id:"id", p:{i:"id", v:"base64value"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", p:{t:"g", i:"id"}} }   ``` |
+| Response      | ```{ rp:{id:"id", p:{i:"id", v:"base64value"}} }   ``` |  
+  
   ###### 1.6.11. Name Set Request
   
-  ```{ rq:{id:"id", n:{t:"s", i:"id", n:"name"}} }  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", n:{t:"s", i:"id", n:"name"}} }  ``` |  
+  
   ###### 1.6.12. Name Get Request/Response
   
-  ```{ rq:{id:"id", n:{t:"g", i:"id"}} }   ```
-    
-  ```{ rp:{id:"id", n:{i:"id", n:"groupname"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", n:{t:"g", i:"id"}} }   ``` |
+| Response      | ```{ rp:{id:"id", n:{i:"id", n:"groupname"}} }   ``` |  
+  
   ###### 1.6.13. Mute Request
   
-  ```{ rq:{id:"id", mt:{i:"id",t:"mutetill"}} }   ```
-  ###### 1.6.14. Unmute Request
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", mt:{i:"id",t:"mutetill"}} }   ``` |  
   
-  ```{ rq:{id:"id", umt:{i:"id"}} }   ```
-    
+  ###### 1.6.14. Unmute Request
+
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", umt:{i:"id"}} }   ``` |  
+
+
 ##### 1.7. Broadcast Group Requests
   ###### 1.7.1. Create Broadcast Group Request
   
