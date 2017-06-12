@@ -38,7 +38,11 @@ An authentication request is sent to the server after the persistence network co
 ##### 1.2. User Followings Requests
   ###### 1.2.1. Add Followings Request
   
-  ```{ rq:{id:"id", af:[{u:"f1",n:"nick1"},{u:"f2",n:"nick2"},{u:"f2",n:"nick2"}]} }  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", af:[{u:"f1",n:"nick1"},{u:"f2",n:"nick2"},{u:"f2",n:"nick2"}]} }  ``` |
+  
+  
   ###### 1.2.2. Remove Following Request
   
   ```{ rq:{id:"id", rf:["f1","f2"]} }  ```
