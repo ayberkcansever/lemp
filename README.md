@@ -21,7 +21,7 @@ A response may have a content or may be empty (only success or error)
 
   ###### 1.1.1 Login Request 
     
-    An authentication request is sent to the server after the persistence network connection is setup.
+An authentication request is sent to the server after the persistence network connection is setup.
     
 | Type          | Packet      | 
 | ------------- |-------------
