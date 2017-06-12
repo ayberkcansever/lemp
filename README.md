@@ -23,9 +23,10 @@ A response may have a content or may be empty (only success or error)
     
     An authentication request is sent to the server after the persistence network connection is setup.
     
-  Request | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```
-  
-  Response | ```{ rp:{id:"id", r:0|1} }```
+      | 
+    ------------ | -------------
+    Request | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```
+    Response | ```{ rp:{id:"id", r:0|1} }```
   
    ###### 1.1.2 Logout Request
   
