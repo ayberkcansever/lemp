@@ -30,8 +30,11 @@ A response may have a content or may be empty (only success or error)
   
   ###### 1.1.2 Logout Request
   
-  ```{ rq:{id:"id", lo:{r:"reason"}} } ```
- 
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", lo:{r:"reason"}} } ``` |
+
+
 ##### 1.2. User Followings Requests
   ###### 1.2.1. Add Followings Request
   
