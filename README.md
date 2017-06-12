@@ -204,98 +204,155 @@ An authentication request is sent to the server after the persistence network co
 ##### 1.7. Broadcast Group Requests
   ###### 1.7.1. Create Broadcast Group Request
   
-  ```{ rq:{id:"id", br:{t:"c", i:"id",n:"broadcastname", p:"picture", m:["member1", "member2", "member3"]}}}   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", br:{t:"c", i:"id",n:"broadcastname", p:"picture", m:["member1", "member2", "member3"]}}}   ``` |    
+  
   ###### 1.7.2. Add Users to Broadcast Group Request
   
-  ```{ rq:{id:"id", br:{t:"a", i:"id",m:["member1", "member2", "member3"]}}}   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", br:{t:"a", i:"id",m:["member1", "member2", "member3"]}}}   ``` |    
+  
   ###### 1.7.3. Banish Users from Broadcast Group Request
   
-  ```{ rq:{id:"id", br:{t:"b",i:"id",m:["member1", "member2", "member3"]}}}  ```
-  ###### 1.7.4. Terminate Broadcast Group Request
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", br:{t:"b",i:"id",m:["member1", "member2", "member3"]}}}  ``` |      
   
-  ```{ rq:{id:"id", br:{t:"t", i:"id"}}}  ```
+  ###### 1.7.4. Terminate Broadcast Group Request
+
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", br:{t:"t", i:"id"}}}  ``` |      
+  
   ###### 1.7.5. Broadcast Group Information Request/Response
   
-  ```{ rq:{id:"id", br:{t:"i", i:"id"}}}   ```
-    
-  ```{ rp:{id:"id", br:{i:"id",c:"creationdate",n:"name",m:["member1", "member2","member3"]}} }   ```
-  ###### 1.7.6. Picture Set Request
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", br:{t:"i", i:"id"}}}   ``` |
+| Response      | ```{ rp:{id:"id", br:{i:"id",c:"creationdate",n:"name",m:["member1", "member2","member3"]}} }   ``` |   
   
-  ```{ rq:{id:"id", p:{t:"s", b:"id", v:"base64value"}} }   ```
+  ###### 1.7.6. Picture Set Request
+
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", p:{t:"s", b:"id", v:"base64value"}} }   ``` |
+  
   ###### 1.7.7. Picture Get Request/Response
   
-  ```{ rq:{id:"id", p:{t:"g", b:"id"}} }   ```
-    
-  ```{ rp:{id:"id", p:{b:"id", v:"base64value"}} }  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", p:{t:"g", b:"id"}} }   ``` |
+| Response      | ```{ rp:{id:"id", p:{b:"id", v:"base64value"}} }  ``` |   
+  
   ###### 1.7.8. Name Set Request
   
-  ```{ rq:{id:"id", n:{t:"s", b:"id", n:"name"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", n:{t:"s", b:"id", n:"name"}} }   ``` |
+  
   ###### 1.7.9. Name Get Request/Response
   
-  ```{ rq:{id:"id", n:{t:"s", b:"id"}} }   ```
-    
-  ```{ rp:{id:"id", n:{b:"id", n:"broadcastname"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", n:{t:"s", b:"id"}} }   ``` |
+| Response      | ```{ rp:{id:"id", n:{b:"id", n:"broadcastname"}} }   ``` |   
+
+
 ##### 1.8. Server Requests
   ###### 1.8.1. Server Time Request/Response
   
-  ```{srq:{id:"id",t:"t"}}   ```
-    
-  ```{ srp:{id:"id", t:"t", tm:"serverunixtime"} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{srq:{id:"id",t:"t"}}   ``` |
+| Response      | ```{ srp:{id:"id", t:"t", tm:"serverunixtime"} }   ``` |     
+  
   ###### 1.8.2. Knock-Knock Request
-    
-  ```{srq:{id:"id",t:"k"}}  ```
-    
-  ```{ srp:{id:"id", t:"k"} }   ```
+  
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{srq:{id:"id",t:"k"}}  ``` |
+| Response      | ```{ srp:{id:"id", t:"k"} }   ``` |   
+  
 ##### 1.9. Response/Error
+
+Id of the response must be same as the id of the request.
+
   ###### 1.9.1. Successful Response
   
-  ```{ rp:{id:"id"} }  ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Response      | ```{ rp:{id:"id"} }  ``` |  
+  
+  
   ###### 1.9.2. Erroneous Response
   
-  ```{ rp:{id:"id", e:{c:"code",d:"description"}} }   ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Response      | ```{ rp:{id:"id", e:{c:"code",d:"description"}} }   ``` |    
 
 #### 2. INFORMATION
 
 ##### 2.1. Login/Logout info broadcast to followers
 
-  ###### 2.1.1.  Login Broadcast
+  ###### 2.1.1.  Login Information Broadcast
   
-  ```{ i:{id:"id", li:"username"} }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", li:"username"} }    ``` |      
   
-  ###### 2.1.2.  Logout Broadcast
+  ###### 2.1.2.  Logout Information Broadcast
   
-  ```{ i:{id:"id", lo:"username"} }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", lo:"username"} }    ``` |     
+  
   
 ##### 2.2.  Group Information Broadcast
 
   ###### 2.2.1.  Group created info
 
-  ```{ i:{id:"id", g:{t:"c",i:"id",n:"name"} } }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", g:{t:"c",i:"id",n:"name"} } }    ``` |     
    
   ###### 2.2.2.  Group member added info
 
-  ```{ i:{id:"id", g:{t:"a",i:"id",m:["member1", "member2", "member3"]} } }    ```
-    
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", g:{t:"a",i:"id",m:["member1", "member2", "member3"]} } }    ``` |     
+
   ###### 2.2.3.  Group user banished info
 
-  ```{ i:{id:"id", g:{t:"b",i:"id",m:"member1"} } }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", g:{t:"b",i:"id",m:"member1"} } }    ``` |     
   
   ###### 2.2.4.  Group terminated info
 
-  ```{ i:{id:"id", g:{t:"t"} } }     ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", g:{t:"t"} } }     ``` |     
     
   ###### 2.2.5.  Group picture changed info
 
-  ```{ i:{id:"id", g:{t:"p"} } }      ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", g:{t:"p"} } }      ``` |   
     
   ###### 2.2.6.  Group name changed info
 
-  ```{ i:{id:"id", g:{t:"n"} } }      ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Info          | ```{ i:{id:"id", g:{t:"n"} } }      ``` |   
   
     
 #### 3. MESSAGE
 
-  ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content", st:sent_time} }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t|p|v|a|l", c:"content", st:sent_time} }    ``` | 
   
   - Message Types
       * t: text
@@ -308,12 +365,19 @@ An authentication request is sent to the server after the persistence network co
    
    Server receipt message is sent for all messages delivered to the server.
    
-  ```{ m:{id:"id", sr:{id:"sent_messageId"} } }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Message       | ```{ m:{id:"id", sr:{id:"sent_messageId"} } }    ``` |    
     
    ###### 3.2.  Delivered Message
-   
-  ```{ m:{id:"id", st:sent_time, dm:{id:"received_messageId"} } }    ```
+
+| Type          | Packet      | 
+| ------------- |-------------
+| Message       | ```{ m:{id:"id", st:sent_time, dm:{id:"received_messageId"} } }    ``` |    
     
    ###### 3.3.  Noticed Message
    
-  ```{ m:{id:"id", st:sent_time, nm:{id:"noticed_messageId"} } }    ```
+| Type          | Packet      | 
+| ------------- |-------------
+| Message       | ```{ m:{id:"id", st:sent_time, nm:{id:"noticed_messageId"} } }    ``` |    
+  
