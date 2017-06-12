@@ -23,11 +23,11 @@ A response may have a content or may be empty (only success or error)
     
     An authentication request is sent to the server after the persistence network connection is setup.
     
-| Tables        | Are           | 
+| Type          | Packet      | 
 | ------------- |-------------
-| col 3 is      | right-aligned |
-| col 2 is      | centered      |
-| zebra stripes | are neat      |
+| Request       | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ``` |
+| Response      | ```{ rp:{id:"id", r:0|1} }```                      |
+
      
      
     Request | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```
