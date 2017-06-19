@@ -355,14 +355,18 @@ Id of the response must be same as the id of the request.
 
 | Type          | Packet      | 
 | ------------- |-------------
-| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t/p/v/a/l", c:"content", st:sent_time} }    ``` | 
+| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t/p/v/a/l", c:"content", st:sent_time, p:"0|1"} }    ``` | 
   
-  - Message Types
+  - Message Types (t)
       * t: text
       * p: photo
       * v: video
       * a: audio
       * l: location
+  
+  - Persistency (p)
+      * 0: do not persist if the receiver is offline
+      * 1: persist the message if the receiver is offline (default)
       
    ###### 3.1.  Server Receipt Message
    
