@@ -294,6 +294,7 @@ Id of the response must be same as the id of the request.
 | Response      | ```{ rp:{id:"id", e:{c:"code",d:"description"}} }   ``` |    
 
 #### 2. INFORMATION
+------
 
 ##### 2.1. Login/Logout info broadcast to followers
 
@@ -350,6 +351,7 @@ Id of the response must be same as the id of the request.
   
     
 #### 3. MESSAGE
+------
 
 | Type          | Packet      | 
 | ------------- |-------------
