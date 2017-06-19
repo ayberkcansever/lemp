@@ -267,7 +267,7 @@ An authentication request is sent to the server after the persistence network co
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{srq:{id:"id",t:"t"}}   ``` |
-| Response      | ```{ srp:{id:"id", t:"t", tm:"serverunixtime"} }   ``` |     
+| Response      | ```{ srp:{id:"id", t:"t", tm:"serverunixtime"}, o:-2 }   ``` |     
   
   ###### 1.8.2. Knock-Knock Request
   
