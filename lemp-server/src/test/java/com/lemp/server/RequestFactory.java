@@ -5,6 +5,7 @@ import com.lemp.object.Logout;
 import com.lemp.object.State;
 import com.lemp.object.User;
 import com.lemp.packet.Request;
+import com.lemp.packet.ServerRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,13 @@ public class RequestFactory {
         state.setU(username);
         request.setS(state);
         return request;
+    }
+
+    public static ServerRequest getServerRequest(String id, ServerRequest.Type type) {
+        ServerRequest serverRequest = new ServerRequest();
+        serverRequest.setId(id);
+        serverRequest.setT(type.getKey());
+        return serverRequest;
     }
 
 }

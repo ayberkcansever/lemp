@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import com.google.gson.Gson;
+import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.actor.AuthenticationRequestProcessorActor;
@@ -59,7 +60,7 @@ public abstract class BaseTest {
         Response response = new Response();
         response.setId(authRequest.getId());
         response.setResult(1);
-        Mockito.verify(session.getBasicRemote(), VerificationModeFactory.atLeastOnce()).sendText(new Gson().toJson(response));
+        Mockito.verify(session.getBasicRemote(), VerificationModeFactory.atLeastOnce()).sendText(new Gson().toJson(new Datum(response)));
     }
 
     protected void logoutUser(Session session) throws InterruptedException, IOException {

@@ -5,6 +5,7 @@ import akka.actor.UntypedActor;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.google.gson.Gson;
+import com.lemp.packet.Datum;
 import com.lemp.packet.Message;
 import com.lemp.server.database.OfflineMessageDBHelper;
 
@@ -30,7 +31,7 @@ public class SessionActor extends UntypedActor {
     @Override
     public void onReceive(Object msg) throws Throwable {
         if(msg instanceof Message) {
-            session.getBasicRemote().sendText(gson.toJson(msg));
+            session.getBasicRemote().sendText(gson.toJson(new Datum((Message) msg)));
         }
     }
 

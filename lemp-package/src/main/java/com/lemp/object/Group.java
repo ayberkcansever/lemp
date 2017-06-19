@@ -30,6 +30,15 @@ public class Group {
         public void setKey(String key) {
             this.key = key;
         }
+
+        public static RequestType getByKey(String key){
+            for(RequestType t : values()){
+                if(t.getKey().equals(key)){
+                    return t;
+                }
+            }
+            return null;
+        }
     }
 
     private String t;

@@ -37,7 +37,7 @@ public class PacketProcessorActor extends UntypedActor {
                     } else {
                         Response errorResponse = new Response();
                         errorResponse.setE(Error.Type.unauthorized);
-                        session.getBasicRemote().sendText(gson.toJson(errorResponse));
+                        session.getBasicRemote().sendText(gson.toJson(new Datum(errorResponse)));
                         return;
                     }
                 }
@@ -94,6 +94,8 @@ public class PacketProcessorActor extends UntypedActor {
                         LempRouters.getMessageProcessorRouter().tell(srm, ActorRef.noSender());
                     }
                     LempRouters.getMessageProcessorRouter().tell(datum.getM(), ActorRef.noSender());
+                } else if(datum.getSrq() != null) {
+                    LempRouters.getServerRequestProcessorRouter().tell(new SessionRequest(datum.getSrq(), session), ActorRef.noSender());
                 }
                 System.out.println(message + " received from session " + session.getId());
             } catch (Exception e) {

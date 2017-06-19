@@ -3,9 +3,11 @@ package com.lemp.server.akka.actor;
 import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.object.State;
+import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.object.SessionRequest;
+import com.lemp.server.database.StateDBHelper;
 
 import javax.websocket.Session;
 
@@ -26,12 +28,13 @@ public class StateRequestProcessorActor extends UntypedActor {
 
                 String username = request.getS().getU();
                 Response response = new Response();
+                response.setId(((SessionRequest) msg).getRequest().getId());
                 State state = new State();
                 state.setU(username);
-                // todo: set last state
-                state.setV(0L);
+                state.setV(StateDBHelper.getInstance().getState(username));
+                response.setS(state);
                 
-                session.getBasicRemote().sendText(gson.toJson(response));
+                session.getBasicRemote().sendText(gson.toJson(new Datum(response)));
             } catch (Exception e) {
                 e.printStackTrace();
             }

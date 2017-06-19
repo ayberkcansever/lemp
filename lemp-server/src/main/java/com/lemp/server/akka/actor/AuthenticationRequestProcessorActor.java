@@ -4,6 +4,7 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.object.Authentication;
+import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.object.SessionRequest;
@@ -36,7 +37,7 @@ public class AuthenticationRequestProcessorActor extends UntypedActor {
                     session.getUserProperties().put(ActorProperties.IDENTITY_KEY, identity);
                     getContext().system().actorOf(Props.create(SessionActor.class, session), identity);
                 }
-                session.getBasicRemote().sendText(gson.toJson(response));
+                session.getBasicRemote().sendText(gson.toJson(new Datum(response)));
             } catch (Exception e) {
                 e.printStackTrace();
             }

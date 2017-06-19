@@ -5,7 +5,6 @@ import akka.actor.Props;
 import akka.testkit.TestKit;
 import com.lemp.packet.Message;
 import com.lemp.server.BaseTest;
-import com.lemp.server.akka.object.SessionRequest;
 import com.lemp.server.database.OfflineMessageDBHelper;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -43,11 +42,19 @@ public class OfflineMessageInserterActorTest extends BaseTest {
             message.setC("Hello");
             actor.tell(message, ActorRef.noSender());
             TimeUnit.MILLISECONDS.sleep(500);
+
             List<Message> messageList = OfflineMessageDBHelper.getInstance().getOfflineMessages("receiver", true);
+            Assert.assertEquals(1, messageList.size());
+
+            message.setP(Message.PersistencyType.persistent.getKey());
+            actor.tell(message, ActorRef.noSender());
+            TimeUnit.MILLISECONDS.sleep(500);
+            messageList = OfflineMessageDBHelper.getInstance().getOfflineMessages("receiver", true);
             Assert.assertEquals(1, messageList.size());
 
             message.setP(Message.PersistencyType.non_persistent.getKey());
             actor.tell(message, ActorRef.noSender());
+            TimeUnit.MILLISECONDS.sleep(500);
             messageList = OfflineMessageDBHelper.getInstance().getOfflineMessages("receiver", true);
             Assert.assertEquals(0, messageList.size());
         }};

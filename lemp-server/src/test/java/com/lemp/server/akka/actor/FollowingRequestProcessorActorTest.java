@@ -5,6 +5,7 @@ import akka.actor.Props;
 import akka.testkit.TestKit;
 import com.google.gson.Gson;
 import com.lemp.object.User;
+import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.BaseTest;
@@ -48,7 +49,7 @@ public class FollowingRequestProcessorActorTest extends BaseTest {
             Assert.assertEquals(2, FollowerDBHelper.getInstance().getUsersFollowees(testUsername).size());
             Assert.assertEquals(1, FollowerDBHelper.getInstance().getUsersFollowers("followee1").size());
             Assert.assertEquals(1, FollowerDBHelper.getInstance().getUsersFollowers("followee2").size());
-            Mockito.verify(remote).sendText(new Gson().toJson(new Response()));
+            Mockito.verify(remote).sendText(new Gson().toJson(new Datum(new Response())));
 
             List<String> rfList = new ArrayList<>();
             rfList.add("followee1");

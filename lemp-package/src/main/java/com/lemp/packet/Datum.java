@@ -12,6 +12,22 @@ public class Datum {
     private Response rp;
     private ServerResponse srp;
 
+    public Datum(Response rp) {
+        this.rp = rp;
+    }
+
+    public Datum(ServerResponse srp) {
+        this.srp = srp;
+    }
+
+    public Datum(Information i) {
+        this.i = i;
+    }
+
+    public Datum(Message m) {
+        this.m = m;
+    }
+
     public Request getRq() {
         return rq;
     }
