@@ -2,6 +2,7 @@ package com.lemp.server;
 
 import com.lemp.object.Authentication;
 import com.lemp.object.Logout;
+import com.lemp.object.State;
 import com.lemp.object.User;
 import com.lemp.packet.Request;
 
@@ -57,6 +58,15 @@ public class RequestFactory {
         Request request = new Request();
         request.setId(id);
         request.setUf(userList);
+        return request;
+    }
+
+    public static Request getStateRequest(String id, String username) {
+        Request request = new Request();
+        request.setId(id);
+        State state = new State();
+        state.setU(username);
+        request.setS(state);
         return request;
     }
 

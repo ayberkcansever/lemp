@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by AyberkC on 07.06.2017.
@@ -27,14 +28,14 @@ public class FollowerDBHelperTest extends BaseTest {
         truncateFollowTables();
         insertFollowees("follower1", 3);
 
-        List<Followee> insertedList = FollowerDBHelper.getInstance().getUsersFollowees("follower1");
+        Set<Followee> insertedList = FollowerDBHelper.getInstance().getUsersFollowees("follower1");
         Assert.assertEquals(3, insertedList.size());
         Assert.assertEquals(1, FollowerDBHelper.getInstance().getUsersFollowers("followee1").size());
         Assert.assertEquals(1, FollowerDBHelper.getInstance().getUsersFollowers("followee2").size());
         Assert.assertEquals(1, FollowerDBHelper.getInstance().getUsersFollowers("followee3").size());
 
         FollowerDBHelper.getInstance().deleteUsersAllFollowees("follower1");
-        List<Followee> list = FollowerDBHelper.getInstance().getUsersFollowees("follower1");
+        Set<Followee> list = FollowerDBHelper.getInstance().getUsersFollowees("follower1");
         Assert.assertEquals(0, list.size());
         Assert.assertEquals(0, FollowerDBHelper.getInstance().getUsersFollowers("followee1").size());
         Assert.assertEquals(0, FollowerDBHelper.getInstance().getUsersFollowers("followee2").size());
@@ -63,11 +64,11 @@ public class FollowerDBHelperTest extends BaseTest {
         truncateFollowTables();
         insertFollowers("followee1", 3);
 
-        List<Follower> insertedList = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
+        Set<Follower> insertedList = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
         Assert.assertEquals(3, insertedList.size());
 
         FollowerDBHelper.getInstance().deleteUsersAllFollowers("followee1");
-        List<Follower> list = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
+        Set<Follower> list = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
         Assert.assertEquals(0, list.size());
     }
 
@@ -104,21 +105,21 @@ public class FollowerDBHelperTest extends BaseTest {
         FollowerDBHelper.getInstance().updateFollowee("follower1", "followee2", "newnick2");
         FollowerDBHelper.getInstance().updateFollowee("follower1", "followee3", "newnick3");
 
-        List<Followee> followeeList = FollowerDBHelper.getInstance().getUsersFollowees("follower1");
+        Set<Followee> followeeList = FollowerDBHelper.getInstance().getUsersFollowees("follower1");
         Assert.assertEquals(3, followeeList.size());
         for(Followee followee : followeeList) {
             Assert.assertTrue(followee.getNick().startsWith("newnick"));
         }
 
-        List<Follower> followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
+        Set<Follower> followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
         Assert.assertEquals(1, followerList.size());
-        Assert.assertTrue(followerList.get(0).getNick().equals("newnick1"));
+        Assert.assertTrue(new ArrayList<>(followerList).get(0).getNick().equals("newnick1"));
         followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee2");
         Assert.assertEquals(1, followerList.size());
-        Assert.assertTrue(followerList.get(0).getNick().equals("newnick2"));
+        Assert.assertTrue(new ArrayList<>(followerList).get(0).getNick().equals("newnick2"));
         followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee3");
         Assert.assertEquals(1, followerList.size());
-        Assert.assertTrue(followerList.get(0).getNick().equals("newnick3"));
+        Assert.assertTrue(new ArrayList<>(followerList).get(0).getNick().equals("newnick3"));
     }
 
     private void insertFollowees(String follower, int size) {

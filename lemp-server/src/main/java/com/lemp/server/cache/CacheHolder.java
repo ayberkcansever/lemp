@@ -7,7 +7,7 @@ import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by AyberkC on 06.06.2017.
@@ -16,8 +16,9 @@ public class CacheHolder {
 
     private static Ignite ignite;
     private static IgniteCache<String, User> userCache;
-    private static IgniteCache<String, List<Followee>> followeeCache;
-    private static IgniteCache<String, List<Follower>> followerCache;
+    private static IgniteCache<String, Set<Followee>> followeeCache;
+    private static IgniteCache<String, Set<Follower>> followerCache;
+    private static IgniteCache<String, Long> stateCache;
 
     private CacheHolder() { }
 
@@ -29,17 +30,22 @@ public class CacheHolder {
         userCache = ignite.getOrCreateCache("userCache");
         followeeCache = ignite.getOrCreateCache("followerCache");
         followerCache = ignite.getOrCreateCache("followeeCache");
+        stateCache = ignite.getOrCreateCache("stateCache");
     }
 
     public static IgniteCache<String, User> getUserCache() {
         return userCache;
     }
 
-    public static IgniteCache<String, List<Followee>> getFolloweeCache() {
+    public static IgniteCache<String, Set<Followee>> getFolloweeCache() {
         return followeeCache;
     }
 
-    public static IgniteCache<String, List<Follower>> getFollowerCache() {
+    public static IgniteCache<String, Set<Follower>> getFollowerCache() {
         return followerCache;
+    }
+
+    public static IgniteCache<String, Long> getStateCache() {
+        return stateCache;
     }
 }

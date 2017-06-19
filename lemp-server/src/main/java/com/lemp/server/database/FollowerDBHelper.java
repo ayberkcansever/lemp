@@ -8,9 +8,7 @@ import com.lemp.server.database.dbo.Followee;
 import com.lemp.server.database.dbo.Follower;
 import org.apache.ignite.cache.CacheEntryProcessor;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 
 /**
@@ -65,16 +63,16 @@ public class FollowerDBHelper extends AbstractDBHelper {
         Lock lock = CacheHolder.getFolloweeCache().lock(follower);
         try {
             lock.lock();
-            List<Followee> existingFolloweeList = CacheHolder.getFolloweeCache().get(follower);
-            if(existingFolloweeList == null) {
-                existingFolloweeList = new ArrayList<>();
+            Set<Followee> existingFolloweeSet = CacheHolder.getFolloweeCache().get(follower);
+            if(existingFolloweeSet == null) {
+                existingFolloweeSet = new HashSet<>();
             }
-            // first of all remove the existing followees if exists
+            /*// first of all remove the existing followees if exists
             for(Followee followee : insertedFollowees) {
                 existingFolloweeList.remove(followee);
-            }
-            existingFolloweeList.addAll(insertedFollowees);
-            CacheHolder.getFolloweeCache().put(follower, existingFolloweeList);
+            }*/
+            existingFolloweeSet.addAll(insertedFollowees);
+            CacheHolder.getFolloweeCache().put(follower, existingFolloweeSet);
         } catch (Exception e) {
             throw e;
         } finally {
@@ -95,14 +93,14 @@ public class FollowerDBHelper extends AbstractDBHelper {
         Lock lock = CacheHolder.getFollowerCache().lock(follower.getFollowee());
         try {
             lock.lock();
-            List<Follower> existingFollowerList = CacheHolder.getFollowerCache().get(follower.getFollowee());
-            if(existingFollowerList == null) {
-                existingFollowerList = new ArrayList<>();
+            Set<Follower> existingFollowerSet = CacheHolder.getFollowerCache().get(follower.getFollowee());
+            if(existingFollowerSet == null) {
+                existingFollowerSet = new HashSet<>();
             }
             // firstly remove the follower if it already exists
-            existingFollowerList.remove(follower);
-            existingFollowerList.add(follower);
-            CacheHolder.getFollowerCache().put(follower.getFollowee(), existingFollowerList);
+            //existingFollowerSet.remove(follower);
+            existingFollowerSet.add(follower);
+            CacheHolder.getFollowerCache().put(follower.getFollowee(), existingFollowerSet);
         } catch (Exception e) {
             throw e;
         } finally {
@@ -123,16 +121,16 @@ public class FollowerDBHelper extends AbstractDBHelper {
         Lock lock = CacheHolder.getFollowerCache().lock(followee);
         try {
             lock.lock();
-            List<Follower> existingFollowerList = CacheHolder.getFollowerCache().get(followee);
-            if(existingFollowerList == null) {
-                existingFollowerList = new ArrayList<>();
+            Set<Follower> existingFollowerSet = CacheHolder.getFollowerCache().get(followee);
+            if(existingFollowerSet == null) {
+                existingFollowerSet = new HashSet<>();
             }
             // first of all remove the existing followers if exists
-            for(Follower follower : insertedFollowers) {
+            /*for(Follower follower : insertedFollowers) {
                 existingFollowerList.remove(follower);
-            }
-            existingFollowerList.addAll(followerList);
-            CacheHolder.getFollowerCache().put(followee, existingFollowerList);
+            }*/
+            existingFollowerSet.addAll(followerList);
+            CacheHolder.getFollowerCache().put(followee, existingFollowerSet);
         } catch (Exception e) {
             throw e;
         } finally {
@@ -144,10 +142,10 @@ public class FollowerDBHelper extends AbstractDBHelper {
         }
     }
 
-    public List<Followee> getUsersFollowees(String follower) {
-        List<Followee> followeeList = CacheHolder.getFolloweeCache().get(follower);
+    public Set<Followee> getUsersFollowees(String follower) {
+        Set<Followee> followeeList = CacheHolder.getFolloweeCache().get(follower);
         if(followeeList == null) {
-            followeeList = new ArrayList<>();
+            followeeList = new HashSet<>();
             ResultSet resultSet = session.execute(loadUserFollowees.bind(follower));
             Iterator<Row> rows = resultSet.iterator();
             while (rows.hasNext()) {
@@ -162,10 +160,10 @@ public class FollowerDBHelper extends AbstractDBHelper {
         return followeeList;
     }
 
-    public List<Follower> getUsersFollowers(String followee) {
-        List<Follower> followerList = CacheHolder.getFollowerCache().get(followee);
+    public Set<Follower> getUsersFollowers(String followee) {
+        Set<Follower> followerList = CacheHolder.getFollowerCache().get(followee);
         if(followerList == null) {
-            followerList = new ArrayList<>();
+            followerList = new HashSet<>();
             ResultSet resultSet = session.execute(loadUserFollowers.bind(followee));
             Iterator<Row> rows = resultSet.iterator();
             while (rows.hasNext()) {
@@ -181,7 +179,7 @@ public class FollowerDBHelper extends AbstractDBHelper {
     }
 
     public void deleteUsersAllFollowees(String follower) {
-        List<Followee> followeeList = getUsersFollowees(follower);
+        Set<Followee> followeeList = getUsersFollowees(follower);
         session.execute(deleteUserFollowees.bind(follower));
         CacheHolder.getFolloweeCache().remove(follower);
         for(Followee followee : followeeList) {
@@ -196,12 +194,12 @@ public class FollowerDBHelper extends AbstractDBHelper {
         Lock lock = CacheHolder.getFolloweeCache().lock(follower);
         try {
             lock.lock();
-            List<Followee> existingFolloweeList = CacheHolder.getFolloweeCache().get(follower);
-            if (existingFolloweeList != null) {
+            Set<Followee> existingFolloweeSet = CacheHolder.getFolloweeCache().get(follower);
+            if (existingFolloweeSet != null) {
                 for (String followee : followees) {
-                    existingFolloweeList.remove(new Followee(follower, followee, ""));
+                    existingFolloweeSet.remove(new Followee(follower, followee, ""));
                 }
-                CacheHolder.getFolloweeCache().put(follower, existingFolloweeList);
+                CacheHolder.getFolloweeCache().put(follower, existingFolloweeSet);
             }
         } catch (Exception e) {
             throw e;
@@ -222,10 +220,10 @@ public class FollowerDBHelper extends AbstractDBHelper {
         Lock lockR = CacheHolder.getFollowerCache().lock(followee);
         try {
             lockR.lock();
-            List<Follower> existingFollowerList = CacheHolder.getFollowerCache().get(followee);
-            if(existingFollowerList != null) {
-                existingFollowerList.remove(new Follower(followee, follower, ""));
-                CacheHolder.getFollowerCache().put(followee, existingFollowerList);
+            Set<Follower> existingFollowerSet = CacheHolder.getFollowerCache().get(followee);
+            if(existingFollowerSet != null) {
+                existingFollowerSet.remove(new Follower(followee, follower, ""));
+                CacheHolder.getFollowerCache().put(followee, existingFollowerSet);
             }
         } catch (Exception e) {
             throw e;
@@ -245,22 +243,22 @@ public class FollowerDBHelper extends AbstractDBHelper {
 
     public void updateFollowee(String follower, String followee, String newNick) {
         session.execute(updateFollowee.bind(newNick, follower, followee));
-        CacheHolder.getFolloweeCache().invoke(follower, (CacheEntryProcessor<String, List<Followee>, Object>) (mutableEntry, objects) -> {
-            List<Followee> existingList = mutableEntry.getValue();
-            if(existingList != null) {
+        CacheHolder.getFolloweeCache().invoke(follower, (CacheEntryProcessor<String, Set<Followee>, Object>) (mutableEntry, objects) -> {
+            Set<Followee> existingSet = mutableEntry.getValue();
+            if(existingSet != null) {
                 String followee1 = (String) objects[0];
                 String newNick1 = (String) objects[1];
-                for (Followee followeeObj : existingList) {
+                for (Followee followeeObj : existingSet) {
                     if (followee1.equals(followeeObj.getFollowee())) {
                         followeeObj.setNick(newNick1);
                         break;
                     }
                 }
             } else {
-                existingList = new ArrayList<>();
-                existingList.add(new Followee(follower, followee, newNick));
+                existingSet = new HashSet<>();
+                existingSet.add(new Followee(follower, followee, newNick));
             }
-            mutableEntry.setValue(existingList);
+            mutableEntry.setValue(existingSet);
             return null;
         }, followee, newNick);
 
@@ -269,22 +267,22 @@ public class FollowerDBHelper extends AbstractDBHelper {
 
     public void updateFollower(String follower, String followee, String newNick) {
         session.execute(updateFollower.bind(newNick, followee, follower));
-        CacheHolder.getFollowerCache().invoke(followee, (CacheEntryProcessor<String, List<Follower>, Object>) (mutableEntry, objects) -> {
-            List<Follower> existingList = mutableEntry.getValue();
-            if(existingList != null) {
+        CacheHolder.getFollowerCache().invoke(followee, (CacheEntryProcessor<String, Set<Follower>, Object>) (mutableEntry, objects) -> {
+            Set<Follower> existingSet = mutableEntry.getValue();
+            if(existingSet != null) {
                 String follower1 = (String) objects[0];
                 String newNick1 = (String) objects[1];
-                for (Follower followerObj : existingList) {
+                for (Follower followerObj : existingSet) {
                     if (follower1.equals(followerObj.getFollower())) {
                         followerObj.setNick(newNick1);
                         break;
                     }
                 }
             } else {
-                existingList = new ArrayList<>();
-                existingList.add(new Follower(followee, follower, newNick));
+                existingSet = new HashSet<>();
+                existingSet.add(new Follower(followee, follower, newNick));
             }
-            mutableEntry.setValue(existingList);
+            mutableEntry.setValue(existingSet);
             return null;
         }, follower, newNick);
     }

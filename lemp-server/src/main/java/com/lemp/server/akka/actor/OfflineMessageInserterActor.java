@@ -13,7 +13,9 @@ public class OfflineMessageInserterActor extends UntypedActor {
     public void onReceive(Object message) throws Throwable {
         if(message instanceof Message) {
             Message msg = (Message) message;
-            OfflineMessageDBHelper.getInstance().insertOfflineMessage(msg);
+            if(Message.PersistencyType.persistent.getKey().equals(msg.getP())) {
+                OfflineMessageDBHelper.getInstance().insertOfflineMessage(msg);
+            }
         }
     }
 }

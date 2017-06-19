@@ -21,8 +21,7 @@ import org.mockito.Mockito;
 import scala.concurrent.duration.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -87,18 +86,20 @@ public class FollowingRequestProcessorActorTest extends BaseTest {
             actor.tell(new SessionRequest(ufRequest, session), ActorRef.noSender());
             TimeUnit.SECONDS.sleep(1);
 
-            List<Followee> followeeList = FollowerDBHelper.getInstance().getUsersFollowees(testUsername);
+            Set<Followee> followeeList = FollowerDBHelper.getInstance().getUsersFollowees(testUsername);
             Assert.assertEquals(2, followeeList.size());
-            Assert.assertTrue(followeeList.get(0).getNick().equals("newnick1"));
-            Assert.assertTrue(followeeList.get(1).getNick().equals("newnick2"));
+            List<Followee> list = new ArrayList<>(followeeList);
+            Collections.sort(list, Comparator.comparing(Followee::getNick));
+            Assert.assertTrue(new ArrayList<>(followeeList).get(1).getNick().equals("newnick1"));
+            Assert.assertTrue(new ArrayList<>(followeeList).get(0).getNick().equals("newnick2"));
 
-            List<Follower> followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
+            Set<Follower> followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee1");
             Assert.assertEquals(1, followerList.size());
-            Assert.assertTrue(followerList.get(0).getNick().equals("newnick1"));
+            Assert.assertTrue(new ArrayList<>(followerList).get(0).getNick().equals("newnick1"));
 
             followerList = FollowerDBHelper.getInstance().getUsersFollowers("followee2");
             Assert.assertEquals(1, followerList.size());
-            Assert.assertTrue(followerList.get(0).getNick().equals("newnick2"));
+            Assert.assertTrue(new ArrayList<>(followerList).get(0).getNick().equals("newnick2"));
 
             FollowerDBHelper.getInstance().deleteUsersAllFollowees("testuser1");
             logoutUser(session);

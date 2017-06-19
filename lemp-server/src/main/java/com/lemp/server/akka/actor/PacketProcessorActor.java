@@ -5,6 +5,7 @@ import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.object.Error;
 import com.lemp.packet.Datum;
+import com.lemp.packet.Message;
 import com.lemp.packet.Response;
 import com.lemp.packet.ServerReceiptMessage;
 import com.lemp.server.akka.LempRouters;
@@ -88,8 +89,10 @@ public class PacketProcessorActor extends UntypedActor {
                     datum.getM().setS((String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY));
                     datum.getM().setSt(System.currentTimeMillis());
                     // sent server receipt message to the sender
-                    ServerReceiptMessage srm = new ServerReceiptMessage(datum.getM());
-                    LempRouters.getMessageProcessorRouter().tell(srm, ActorRef.noSender());
+                    if(Message.ExpectType.server_receipt_expected.getKey().equals(datum.getM().getSc())) {
+                        ServerReceiptMessage srm = new ServerReceiptMessage(datum.getM());
+                        LempRouters.getMessageProcessorRouter().tell(srm, ActorRef.noSender());
+                    }
                     LempRouters.getMessageProcessorRouter().tell(datum.getM(), ActorRef.noSender());
                 }
                 System.out.println(message + " received from session " + session.getId());
