@@ -355,7 +355,7 @@ Id of the response must be same as the id of the request.
 
 | Type          | Packet      | 
 | ------------- |-------------
-| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t/p/v/a/l", c:"content", st:sent_time, p:"0/1"} }    ``` | 
+| Message       | ```{ m:{id:"id", s:"sender", r:"receiver", t:"t/p/v/a/l", c:"content", st:sent_time, p:"0/1", sr:"0/1", pr:"0/1"} }    ``` | 
   
   - Message Types (t)
       * t: text
@@ -367,6 +367,14 @@ Id of the response must be same as the id of the request.
   - Persistency (p)
       * 0: do not persist if the receiver is offline
       * 1: persist the message if the receiver is offline (default)
+      
+  - Server Receipt (sr)
+      * 0: the server does not sent message received message
+      * 1: the server sents message received message (default)
+      
+  - Peer Receipt (pr)
+      * 0: the peer does not sent message received message
+      * 1: the peer sents message received message (default)
       
    ###### 3.1.  Server Receipt Message
    
