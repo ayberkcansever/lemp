@@ -12,6 +12,7 @@ There are 3 main datum types in LEMP.
 3. Message
 
 #### 1. REQUEST 
+------
 
 Every request, except logout requests must have a response (Success or Error covered in section 1.9)
 
