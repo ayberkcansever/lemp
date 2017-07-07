@@ -27,7 +27,7 @@ An authentication request is sent to the server after the persistence network co
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id",a:{i:"identity",t:"token"}} } ```  |
-| Response      | ```{ rp:{id:"id", r:0/1} } ```                      |
+| Response      | ```{ rp:{id:"id", response:0/1} } ```               |
   
   ###### 1.1.2 Logout Request
   
