@@ -291,8 +291,20 @@ Id of the response must be same as the id of the request.
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Response      | ```{ rp:{id:"id", e:{c:"code",d:"description"}} }   ``` |    
+| Response      | ```{ rp:{id:"id", e:{c:"code",d:"description"}} }   ``` |   
 
+##### 1.10. Admin Requests
+
+  ###### 1.10.1. Create New User Request
+  
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", cr:{i:"identity", t:"token", ty:"0|1"}}}  ``` |  
+  
+  - User Types (ty)
+      * 0: user
+      * 1: admin
+  
 #### 2. INFORMATION
 ------
 
