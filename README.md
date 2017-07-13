@@ -299,8 +299,12 @@ Id of the response must be same as the id of the request.
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", cr:{i:"identity", t:"token", ty:"0/1"}}}  ``` |  
+| Request       | ```{ rq:{id:"id", ad:{c:"cr/del", i:"identity", t:"token", ty:"0/1"}}}  ``` |  
   
+  - User Types (ty)
+      * cr : create
+      * del: delete
+      
   - User Types (ty)
       * 0: user
       * 1: admin
