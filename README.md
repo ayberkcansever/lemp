@@ -299,7 +299,7 @@ Id of the response must be same as the id of the request.
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", cr:{i:"identity", t:"token", ty:"0|1"}}}  ``` |  
+| Request       | ```{ rq:{id:"id", cr:{i:"identity", t:"token", ty:"0/1"}}}  ``` |  
   
   - User Types (ty)
       * 0: user
