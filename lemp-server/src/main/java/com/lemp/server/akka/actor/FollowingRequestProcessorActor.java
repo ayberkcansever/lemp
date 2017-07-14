@@ -28,7 +28,7 @@ public class FollowingRequestProcessorActor extends UntypedActor {
             SessionRequest sessionRequest = (SessionRequest) msg;
             Request request = sessionRequest.getRequest();
             Session session = sessionRequest.getSession();
-            String username = (String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY);
+            String username = ((com.lemp.server.database.dbo.User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
             try {
                 // Add new following
                 if(request.getAf() != null) {

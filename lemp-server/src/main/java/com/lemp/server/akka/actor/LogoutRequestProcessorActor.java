@@ -6,6 +6,7 @@ import akka.actor.UntypedActor;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.lemp.server.akka.object.SessionRequest;
+import com.lemp.server.database.dbo.User;
 
 import javax.websocket.Session;
 
@@ -26,7 +27,7 @@ public class LogoutRequestProcessorActor extends UntypedActor {
             try {
                 SessionRequest sessionRequest = (SessionRequest) msg;
                 Session session = sessionRequest.getSession();
-                String username = (String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY);
+                String username = ((User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
                 mediator.tell(new DistributedPubSubMediator.Send("/user/" + username, PoisonPill.getInstance(), false), ActorRef.noSender());
                 session.close();
             } catch (Exception e) {

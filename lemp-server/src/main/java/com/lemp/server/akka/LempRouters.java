@@ -23,6 +23,7 @@ public class LempRouters {
     private static ActorRef groupRequestRouter;
     private static ActorRef broadcastGroupRequestRouter;
     private static ActorRef serverRequestProcessorRouter;
+    private static ActorRef administrativeRequestProcessorRouter;
 
     private LempRouters() { }
 
@@ -52,6 +53,8 @@ public class LempRouters {
                     "broadcastGroupRequestRouter");
             serverRequestProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(ServerRequestProcessorActor.class)),
                     "serverRequestProcessorRouter");
+            administrativeRequestProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(AdministrativeRequestProcessorActor.class)),
+                    "administrativeRequestProcessorRouter");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,5 +106,9 @@ public class LempRouters {
 
     public static ActorRef getServerRequestProcessorRouter() {
         return serverRequestProcessorRouter;
+    }
+
+    public static ActorRef getAdministrativeRequestProcessorRouter() {
+        return administrativeRequestProcessorRouter;
     }
 }

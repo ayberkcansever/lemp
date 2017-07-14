@@ -11,6 +11,7 @@ import com.lemp.packet.ServerReceiptMessage;
 import com.lemp.server.akka.LempRouters;
 import com.lemp.server.akka.object.ClientMessage;
 import com.lemp.server.akka.object.SessionRequest;
+import com.lemp.server.database.dbo.User;
 
 import javax.websocket.Session;
 
@@ -31,7 +32,7 @@ public class PacketProcessorActor extends UntypedActor {
 
                 Datum datum = gson.fromJson(message, Datum.class);
 
-                if(session.getUserProperties().get(ActorProperties.IDENTITY_KEY) == null) {
+                if((session.getUserProperties().get(ActorProperties.USER)) == null) {
                     if(datum.getRq() != null && datum.getRq().getA() != null) {
                         // continue if identity is null && an authentication request came
                     } else {
@@ -84,9 +85,13 @@ public class PacketProcessorActor extends UntypedActor {
                             || (datum.getRq().getN() != null && datum.getRq().getN().getB() != null)) {
                         LempRouters.getBroadcastGroupRequestRouter().tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
                     }
+                    // Administrative Request
+                    else if(datum.getRq().getAd() != null) {
+                        LempRouters.getAdministrativeRequestProcessorRouter().tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
+                    }
                 } else if(datum.getM() != null) {
                     // override the sender with session identity
-                    datum.getM().setS((String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY));
+                    datum.getM().setS(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername());
                     datum.getM().setSt(System.currentTimeMillis());
                     // sent server receipt message to the sender
                     if(Message.ExpectType.server_receipt_expected.getKey().equals(datum.getM().getSc())) {

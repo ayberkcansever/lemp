@@ -9,6 +9,7 @@ import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.object.SessionRequest;
 import com.lemp.server.database.UserDBHelper;
+import com.lemp.server.database.dbo.User;
 
 import javax.websocket.Session;
 
@@ -32,9 +33,10 @@ public class AuthenticationRequestProcessorActor extends UntypedActor {
 
                 Response response = new Response();
                 response.setId(request.getId());
-                response.setResult(UserDBHelper.getInstance().isAuthenticated(identity, token) ? 1 : 0);
+                User user = UserDBHelper.getInstance().isAuthenticatedUser(identity, token);
+                response.setResult(user != null ? 1 : 0);
                 if(response.getResult() == 1) {
-                    session.getUserProperties().put(ActorProperties.IDENTITY_KEY, identity);
+                    session.getUserProperties().put(ActorProperties.USER, user);
                     getContext().system().actorOf(Props.create(SessionActor.class, session), identity);
                 }
                 session.getBasicRemote().sendText(gson.toJson(new Datum(response)));

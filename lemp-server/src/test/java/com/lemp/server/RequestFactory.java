@@ -1,9 +1,6 @@
 package com.lemp.server;
 
-import com.lemp.object.Authentication;
-import com.lemp.object.Logout;
-import com.lemp.object.State;
-import com.lemp.object.User;
+import com.lemp.object.*;
 import com.lemp.packet.Request;
 import com.lemp.packet.ServerRequest;
 
@@ -76,6 +73,27 @@ public class RequestFactory {
         serverRequest.setId(id);
         serverRequest.setT(type.getKey());
         return serverRequest;
+    }
+
+    public static Request getCreateUserRequest(String id, String username, String password) {
+        Request request = new Request();
+        request.setId(id);
+        Administrative administrative = new Administrative();
+        administrative.setC(Administrative.Command.create.getKey());
+        administrative.setI(username);
+        administrative.setT(password);
+        request.setAd(administrative);
+        return request;
+    }
+
+    public static Request getDeleteUserRequest(String id, String username) {
+        Request request = new Request();
+        request.setId(id);
+        Administrative administrative = new Administrative();
+        administrative.setC(Administrative.Command.delete.getKey());
+        administrative.setI(username);
+        request.setAd(administrative);
+        return request;
     }
 
 }
