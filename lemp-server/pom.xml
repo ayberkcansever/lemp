@@ -142,9 +142,6 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <descriptors>
-                                <descriptor>exec-config.xml</descriptor>
-                            </descriptors>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>allinone</shadedClassifierName>
                             <artifactSet>
