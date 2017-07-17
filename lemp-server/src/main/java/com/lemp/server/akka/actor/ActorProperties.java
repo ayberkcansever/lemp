@@ -5,6 +5,7 @@ package com.lemp.server.akka.actor;
  */
 public class ActorProperties {
 
-    public static final String IDENTITY_KEY = "identity";
+    //public static final String IDENTITY_KEY = "identity";
+    public static final String USER = "user";
 
 }

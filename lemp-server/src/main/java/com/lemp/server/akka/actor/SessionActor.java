@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.lemp.packet.Datum;
 import com.lemp.packet.Message;
 import com.lemp.server.database.OfflineMessageDBHelper;
+import com.lemp.server.database.dbo.User;
 
 import javax.websocket.Session;
 import java.io.IOException;
@@ -37,19 +38,19 @@ public class SessionActor extends UntypedActor {
 
     @Override
     public void preStart() {
-        System.out.println(session.getUserProperties().get(ActorProperties.IDENTITY_KEY) + " starting...");
+        System.out.println(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername() + " starting...");
         deliverOfflineMessages();
     }
 
     @Override
     public void postStop() {
-        System.out.println(session.getUserProperties().get(ActorProperties.IDENTITY_KEY) + " stopped...");
+        System.out.println(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername() + " stopped...");
     }
 
     private void deliverOfflineMessages() {
         try {
             List<String> offlineMessages = OfflineMessageDBHelper.getInstance()
-                                                                 .getOfflineMessagesAsString((String) session.getUserProperties().get(ActorProperties.IDENTITY_KEY), true);
+                                                                 .getOfflineMessagesAsString(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername(), true);
             Iterator<String> iterator = offlineMessages.iterator();
             while(iterator.hasNext()) {
                 String message = iterator.next();

@@ -26,6 +26,15 @@ public class Response {
         this.e = e;
     }
 
+    public Response(String id) {
+        this.id = id;
+    }
+
+    public Response(String id, Error.Type e) {
+        this.id = id;
+        this.e = e;
+    }
+
     public String getId() {
         return id;
     }

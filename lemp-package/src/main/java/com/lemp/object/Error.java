@@ -6,7 +6,7 @@ package com.lemp.object;
 public class Error {
 
     public enum Type {
-        not_found(400, "Item not found."),
+        bad_request(400, "Bad Request."),
         unauthorized(401, "Unauthorized."),
         forbidden(403, "Forbidden."),
         internal_server_error(500, "Internal server Error.");

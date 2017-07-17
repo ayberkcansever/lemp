@@ -28,6 +28,10 @@ public class Datum {
         this.m = m;
     }
 
+    public Datum(Request rq) {
+        this.rq = rq;
+    }
+
     public Request getRq() {
         return rq;
     }

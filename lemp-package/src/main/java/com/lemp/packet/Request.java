@@ -44,6 +44,7 @@ public class Request extends Packet{
     private Mute mt;
     private Unmute umt;
     private Broadcast br;
+    private Administrative ad;
 
     public Authentication getA() {
         return a;
@@ -171,5 +172,13 @@ public class Request extends Packet{
 
     public void setUmt(Unmute umt) {
         this.umt = umt;
+    }
+
+    public Administrative getAd() {
+        return ad;
+    }
+
+    public void setAd(Administrative ad) {
+        this.ad = ad;
     }
 }

@@ -24,9 +24,13 @@ public class UserDBHelper extends AbstractDBHelper {
         }
     }
 
+    private PreparedStatement insertUserPs;
+    private PreparedStatement deleteUserPs;
     private PreparedStatement loadUserPs;
 
     private UserDBHelper() {
+        insertUserPs = session.prepare("insert into user (username, password, user_type) values(?, ?, ?)");
+        deleteUserPs = session.prepare("delete from user where username = ?");
         loadUserPs = session.prepare("select * from user where username = ?");
     }
 
@@ -43,7 +47,8 @@ public class UserDBHelper extends AbstractDBHelper {
                 Row r = rows.next();
                 String u = r.getString("username");
                 String p = r.getString("password");
-                user = new User(u, p);
+                int t = r.getInt("user_type");
+                user = new User(u, p, t);
                 CacheHolder.getUserCache().put(username, user);
                 break;
            }
@@ -51,17 +56,27 @@ public class UserDBHelper extends AbstractDBHelper {
         return user;
     }
 
-    public boolean isAuthenticated(String identity, String token) {
+    public void insertUser(String username, String password, int userType) {
+        session.execute(insertUserPs.bind(username, password, userType));
+        CacheHolder.getUserCache().put(username, new User(username, password, userType));
+    }
+
+    public void deleteUser(String username) {
+        session.execute(deleteUserPs.bind(username));
+        CacheHolder.getUserCache().remove(username);
+    }
+
+    public User isAuthenticatedUser(String identity, String token) {
         if(Strings.isNullOrEmpty(token)) {
-            return false;
+            return null;
         }
         User user = getUser(identity);
         if(user == null) {
-            return false;
+            return null;
         }
         if(token.equals(user.getPassword())) {
-            return true;
+            return user;
         }
-        return false;
+        return null;
     }
 }
