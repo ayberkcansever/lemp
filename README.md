@@ -70,14 +70,14 @@ An authentication request is sent to the server after the persistence network co
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", p:{t:"s", u:"username", v:"base4value"}} }  ``` |
+| Request       | ```{ rq:{id:"id", p:{t:"s", u:"username", v:"picUrl"}} }  ``` |
     
   ###### 1.4.2. Picture Get Request/Response
   
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", p:{t:"g", u:"username"}} }  ``` |
-| Response      | ```{ rp:{id:"id", p:{u:"username", v:"base64value"}} }   ``` |
+| Response      | ```{ rp:{id:"id", p:{u:"username", v:"picUrl"}} }   ``` |
   
   ###### 1.4.3. Status Set Request
   
