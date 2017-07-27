@@ -25,11 +25,15 @@ public class UserDBHelper extends AbstractDBHelper {
     }
 
     private PreparedStatement insertUserPs;
+    private PreparedStatement updateUserPicUrlPs;
+    private PreparedStatement updateUserStatusPs;
     private PreparedStatement deleteUserPs;
     private PreparedStatement loadUserPs;
 
     private UserDBHelper() {
         insertUserPs = session.prepare("insert into user (username, password, user_type) values(?, ?, ?)");
+        updateUserPicUrlPs = session.prepare("update user set pic_url = ? where username = ?");
+        updateUserStatusPs = session.prepare("update user set status = ? where username = ?");
         deleteUserPs = session.prepare("delete from user where username = ?");
         loadUserPs = session.prepare("select * from user where username = ?");
     }
@@ -48,7 +52,9 @@ public class UserDBHelper extends AbstractDBHelper {
                 String u = r.getString("username");
                 String p = r.getString("password");
                 int t = r.getInt("user_type");
-                user = new User(u, p, t);
+                String pu = r.getString("pic_url");
+                String s = r.getString("status");
+                user = new User(u, p, t, pu, s);
                 CacheHolder.getUserCache().put(username, user);
                 break;
            }
@@ -59,6 +65,19 @@ public class UserDBHelper extends AbstractDBHelper {
     public void insertUser(String username, String password, int userType) {
         session.execute(insertUserPs.bind(username, password, userType));
         CacheHolder.getUserCache().put(username, new User(username, password, userType));
+    }
+
+    public void updateUserPicUrl(String username, String picUrl) {
+        session.execute(updateUserPicUrlPs.bind(picUrl, username));
+        User user = getUser(username);
+        user.setPicUrl(picUrl);
+        CacheHolder.getUserCache().put(username, user);
+    }
+    public void updateUserStatus(String username, String status) {
+        session.execute(updateUserStatusPs.bind(status, username));
+        User user = getUser(username);
+        user.setStatus(status);
+        CacheHolder.getUserCache().put(username, user);
     }
 
     public void deleteUser(String username) {

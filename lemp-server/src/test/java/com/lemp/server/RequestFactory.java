@@ -96,4 +96,43 @@ public class RequestFactory {
         return request;
     }
 
+    public static Request getSetPicUrlRequest(String id, String picUrl) {
+        Request request = new Request();
+        request.setId(id);
+        Picture picture = new Picture();
+        picture.setT(Request.Type.set.getKey());
+        picture.setV(picUrl);
+        request.setP(picture);
+        return request;
+    }
+
+    public static Request getGetPicUrlRequest(String id, String username) {
+        Request request = new Request();
+        request.setId(id);
+        Picture picture = new Picture();
+        picture.setT(Request.Type.get.getKey());
+        picture.setU(username);
+        request.setP(picture);
+        return request;
+    }
+
+    public static Request getSetStatusRequest(String id, String status) {
+        Request request = new Request();
+        request.setId(id);
+        Status statusObj = new Status();
+        statusObj.setT(Request.Type.set.getKey());
+        statusObj.setS(status);
+        request.setSt(statusObj);
+        return request;
+    }
+
+    public static Request getGetStatusRequest(String id, String username) {
+        Request request = new Request();
+        request.setId(id);
+        Status statusObj = new Status();
+        statusObj.setT(Request.Type.get.getKey());
+        statusObj.setU(username);
+        request.setSt(statusObj);
+        return request;
+    }
 }
