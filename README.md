@@ -70,7 +70,7 @@ An authentication request is sent to the server after the persistence network co
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", p:{t:"s", u:"username", v:"picUrl"}} }  ``` |
+| Request       | ```{ rq:{id:"id", p:{t:"s", v:"picUrl"}} }  ``` |
     
   ###### 1.4.2. Picture Get Request/Response
   
@@ -83,7 +83,7 @@ An authentication request is sent to the server after the persistence network co
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", st:{t:"s", u:"username", s:"status"}} }  ``` |
+| Request       | ```{ rq:{id:"id", st:{t:"s", s:"status"}} }  ``` |
 
   ###### 1.4.4. Status Get Request/Response
   
