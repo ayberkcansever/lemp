@@ -66,33 +66,26 @@ An authentication request is sent to the server after the persistence network co
     
   
 ##### 1.4. Personal Requests
-  ###### 1.4.1. Personal Information Request/Response
+  ###### 1.4.1. Picture Set Request
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", i:{u:"username"}} }  ``` |
-| Response      | ```{ rp:{id:"id", i:{u:"username", c:"creationdate", r:"registerdate"}} }   ``` |
-  
-  ###### 1.4.2. Picture Set Request
-  
-| Type          | Packet      | 
-| ------------- |-------------
-| Request       | ```{ rq:{id:"id", p:{t:"s", u:"username", v:"base4value"}} }  ``` |
+| Request       | ```{ rq:{id:"id", p:{t:"s", v:"picUrl"}} }  ``` |
     
-  ###### 1.4.3. Picture Get Request/Response
+  ###### 1.4.2. Picture Get Request/Response
   
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", p:{t:"g", u:"username"}} }  ``` |
-| Response      | ```{ rp:{id:"id", p:{u:"username", v:"base64value"}} }   ``` |
+| Response      | ```{ rp:{id:"id", p:{u:"username", v:"picUrl"}} }   ``` |
   
-  ###### 1.4.4. Status Set Request
+  ###### 1.4.3. Status Set Request
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", st:{t:"s", u:"username", s:"status"}} }  ``` |
+| Request       | ```{ rq:{id:"id", st:{t:"s", s:"status"}} }  ``` |
 
-  ###### 1.4.5. Status Get Request/Response
+  ###### 1.4.4. Status Get Request/Response
   
 | Type          | Packet      | 
 | ------------- |-------------

@@ -8,6 +8,7 @@ import com.lemp.server.Application;
 import com.lemp.server.akka.LempRouters;
 import com.lemp.server.akka.actor.ActorProperties;
 import com.lemp.server.akka.object.ClientMessage;
+import com.lemp.server.database.StateDBHelper;
 import com.lemp.server.database.dbo.User;
 import org.glassfish.tyrus.core.wsadl.model.Endpoint;
 
@@ -31,6 +32,7 @@ public class LempEndpoint extends Endpoint {
         try {
             String identity = ((User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
             DistributedPubSub.get(Application.getActorSystem()).mediator().tell(new DistributedPubSubMediator.Send("/user/" + identity, PoisonPill.getInstance(), false), ActorRef.noSender());
+            StateDBHelper.getInstance().updateState(identity);
             System.out.println(session.getId() + " " + identity + " closed.");
         } catch (Exception e) {
 

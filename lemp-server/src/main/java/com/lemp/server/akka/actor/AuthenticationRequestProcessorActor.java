@@ -39,6 +39,7 @@ public class AuthenticationRequestProcessorActor extends UntypedActor {
                 User user = UserDBHelper.getInstance().isAuthenticatedUser(identity, token);
                 response.setResult(user != null ? 1 : 0);
                 if(response.getResult() == 1) {
+                    session.getUserProperties().put(ActorProperties.USER, user);
                     try {
                         getContext().system().actorOf(Props.create(SessionActor.class, session), identity);
                     } catch (InvalidActorNameException ex) {
@@ -46,7 +47,6 @@ public class AuthenticationRequestProcessorActor extends UntypedActor {
                         TimeUnit.SECONDS.sleep(2);
                         getContext().system().actorOf(Props.create(SessionActor.class, session), identity);
                     }
-                    session.getUserProperties().put(ActorProperties.USER, user);
                 }
                 session.getBasicRemote().sendText(gson.toJson(new Datum(response)));
             } catch (Exception e) {

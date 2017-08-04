@@ -9,6 +9,7 @@ public class Error {
         bad_request(400, "Bad Request."),
         unauthorized(401, "Unauthorized."),
         forbidden(403, "Forbidden."),
+        not_found(404, "Not found."),
         internal_server_error(500, "Internal server Error.");
 
         private int code;
