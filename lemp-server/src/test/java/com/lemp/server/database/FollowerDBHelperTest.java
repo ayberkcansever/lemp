@@ -19,7 +19,7 @@ public class FollowerDBHelperTest extends BaseTest {
 
     @BeforeClass
     public static void setup() throws Exception {
-        AbstractDBHelper.init(new String[]{"127.0.0.1"}, "lemp_test");
+        AbstractDBHelper.init(new String[]{"127.0.0.1"}, 9062, "lemp_test");
         CacheHolder.init();
     }
 

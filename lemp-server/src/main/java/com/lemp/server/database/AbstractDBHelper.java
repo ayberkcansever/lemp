@@ -16,9 +16,9 @@ public abstract class AbstractDBHelper {
 
     protected AbstractDBHelper() { }
 
-    public static void init(String[] contactPoints, String keyspace ){
+    public static void init(String[] contactPoints, int port, String keyspace ){
         if(cluster == null) {
-            Cluster.Builder clusterBuilder = Cluster.builder();
+            Cluster.Builder clusterBuilder = Cluster.builder().withPort(port);
             for(String contactPoint : contactPoints) {
                 clusterBuilder.addContactPoint(contactPoint);
             }
