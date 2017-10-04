@@ -17,7 +17,7 @@ import javax.websocket.Session;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class PersonalRequestProcessorActor extends UntypedActor {
+public class PersonalRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 

@@ -20,7 +20,7 @@ public class Application {
     private static ActorSystem actorSystem;
 
     public static void main(String[] args) throws DeploymentException {
-        AbstractDBHelper.init(new String[]{"127.0.0.1"}, 9062, "lemp");
+        AbstractDBHelper.init(new String[]{"127.0.0.1"}, 9042, "lemp");
         CacheHolder.init();
 
         Server server = new Server("localhost", 8025, "/", null, LempEndpoint.class);
@@ -37,6 +37,10 @@ public class Application {
 
     public static ActorSystem getActorSystem() {
         return actorSystem;
+    }
+
+    public static void setActorSystem(ActorSystem as) {
+        actorSystem = as;
     }
 
 }

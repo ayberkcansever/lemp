@@ -6,9 +6,9 @@ import com.lemp.object.Error;
 /**
  * Created by ayberkcansever on 13/01/17.
  */
-public class Response {
+public class Response extends Packet {
 
-    private String id;
+    private String r;
     private int result;
     private State s;
     private PersonalInfo i;
@@ -35,12 +35,12 @@ public class Response {
         this.e = e;
     }
 
-    public String getId() {
-        return id;
+    public String getR() {
+        return r;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setR(String r) {
+        this.r = r;
     }
 
     public int getResult() {

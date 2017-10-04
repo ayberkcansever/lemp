@@ -57,6 +57,11 @@
                     <property name="atomicityMode" value="ATOMIC"/>
                     <property name="cacheMode" value="REPLICATED"/>
                 </bean>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="name" value="privacyCache"/>
+                    <property name="atomicityMode" value="ATOMIC"/>
+                    <property name="cacheMode" value="REPLICATED"/>
+                </bean>
             </list>
         </property>
         <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->

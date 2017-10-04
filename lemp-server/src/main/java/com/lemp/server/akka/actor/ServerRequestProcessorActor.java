@@ -13,7 +13,7 @@ import java.util.TimeZone;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class ServerRequestProcessorActor extends UntypedActor {
+public class ServerRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 

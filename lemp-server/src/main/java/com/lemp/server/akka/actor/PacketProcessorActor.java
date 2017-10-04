@@ -18,7 +18,7 @@ import javax.websocket.Session;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class PacketProcessorActor extends UntypedActor {
+public class PacketProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 
@@ -60,8 +60,9 @@ public class PacketProcessorActor extends UntypedActor {
                         LempRouters.getFollowingRequestRouter().tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
                     }
                     // State Request
-                    else if(datum.getRq().getS() != null){
-                        LempRouters.getStateRequestRouter().tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
+                    else if(datum.getRq().getS() != null) {
+                        datum.getRq().setR(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername());
+                        LempRouters.getMessageProcessorRouter().tell(datum.getRq(), ActorRef.noSender());
                     }
                     // Personal Request
                     else if(datum.getRq().getI() != null
@@ -92,7 +93,9 @@ public class PacketProcessorActor extends UntypedActor {
                 } else if(datum.getM() != null) {
                     // override the sender with session identity
                     datum.getM().setS(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername());
-                    datum.getM().setSt(System.currentTimeMillis());
+                    if(datum.getM().getSt() == null) {
+                        datum.getM().setSt(System.currentTimeMillis());
+                    }
                     // sent server receipt message to the sender
                     if(Message.ExpectType.server_receipt_expected.getKey().equals(datum.getM().getSc())) {
                         ServerReceiptMessage srm = new ServerReceiptMessage(datum.getM());

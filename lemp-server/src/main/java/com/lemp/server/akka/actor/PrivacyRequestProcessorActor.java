@@ -12,7 +12,7 @@ import javax.websocket.Session;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class PrivacyRequestProcessorActor extends UntypedActor {
+public class PrivacyRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 

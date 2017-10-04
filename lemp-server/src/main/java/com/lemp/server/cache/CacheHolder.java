@@ -19,6 +19,7 @@ public class CacheHolder {
     private static IgniteCache<String, Set<Followee>> followeeCache;
     private static IgniteCache<String, Set<Follower>> followerCache;
     private static IgniteCache<String, Long> stateCache;
+    private static IgniteCache<String, Set<String>> privacyCache;
 
     private CacheHolder() { }
 
@@ -31,6 +32,7 @@ public class CacheHolder {
         followeeCache = ignite.getOrCreateCache("followerCache");
         followerCache = ignite.getOrCreateCache("followeeCache");
         stateCache = ignite.getOrCreateCache("stateCache");
+        privacyCache = ignite.getOrCreateCache("privacyCache");
     }
 
     public static IgniteCache<String, User> getUserCache() {
@@ -47,5 +49,9 @@ public class CacheHolder {
 
     public static IgniteCache<String, Long> getStateCache() {
         return stateCache;
+    }
+
+    public static IgniteCache<String, Set<String>> getPrivacyCache() {
+        return privacyCache;
     }
 }

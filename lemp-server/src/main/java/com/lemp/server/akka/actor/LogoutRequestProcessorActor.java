@@ -13,7 +13,7 @@ import javax.websocket.Session;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class LogoutRequestProcessorActor extends UntypedActor {
+public class LogoutRequestProcessorActor extends LempActor {
 
     private ActorRef mediator;
 

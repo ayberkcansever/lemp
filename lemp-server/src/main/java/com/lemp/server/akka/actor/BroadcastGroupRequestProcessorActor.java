@@ -13,7 +13,7 @@ import javax.websocket.Session;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class BroadcastGroupRequestProcessorActor extends UntypedActor {
+public class BroadcastGroupRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 

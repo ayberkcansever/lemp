@@ -9,6 +9,8 @@ import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.Application;
+import com.lemp.server.akka.LempRouters;
+import com.lemp.server.akka.event.LoginEvent;
 import com.lemp.server.akka.object.SessionRequest;
 import com.lemp.server.database.UserDBHelper;
 import com.lemp.server.database.dbo.User;
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class AuthenticationRequestProcessorActor extends UntypedActor {
+public class AuthenticationRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 

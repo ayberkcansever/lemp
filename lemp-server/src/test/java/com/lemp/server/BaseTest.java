@@ -2,13 +2,17 @@ package com.lemp.server;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.DeadLetter;
 import akka.actor.Props;
+import akka.cluster.pubsub.DistributedPubSub;
 import com.google.gson.Gson;
 import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.actor.AuthenticationRequestProcessorActor;
+import com.lemp.server.akka.actor.DeadLetterActor;
 import com.lemp.server.akka.actor.LogoutRequestProcessorActor;
+import com.lemp.server.akka.actor.PacketProcessorActor;
 import com.lemp.server.akka.object.SessionRequest;
 import com.lemp.server.cache.CacheHolder;
 import com.lemp.server.database.AbstractDBHelper;
@@ -34,20 +38,37 @@ public abstract class BaseTest {
     protected static final String testUsername = "testuser1";
     protected static final String testUserPassword = "1";
 
+    protected static final String testUsername2 = "testuser2";
+    protected static final String testUserPassword2 = "1";
+
     protected static Session session;
+    protected static Session session2;
     protected static RemoteEndpoint.Basic remote;
+    protected static RemoteEndpoint.Basic remote2;
+
+    protected static ActorRef packetProcessorActor;
 
     protected static void setUp(){
-        AbstractDBHelper.init(new String[]{"127.0.0.1"}, 9062, "lemp_test");
+        AbstractDBHelper.init(new String[]{"127.0.0.1"}, 9042, "lemp_test");
         CacheHolder.init();
         if(system == null) {
-            system = ActorSystem.create();
+            system = ActorSystem.create("ClusterSystem");
+            Application.setActorSystem(system);
+            system.eventStream().subscribe(system.actorOf(Props.create(DeadLetterActor.class)), DeadLetter.class);
+            Props props = Props.create(PacketProcessorActor.class);
+            packetProcessorActor = system.actorOf(props);
         }
         if(session == null) {
             session = mock(Session.class);
             given(session.getUserProperties()).willReturn(new HashMap<>());
             remote = mock(RemoteEndpoint.Basic.class);
             given(session.getBasicRemote()).willReturn(remote);
+        }
+        if(session2 == null) {
+            session2 = mock(Session.class);
+            given(session2.getUserProperties()).willReturn(new HashMap<>());
+            remote2 = mock(RemoteEndpoint.Basic.class);
+            given(session2.getBasicRemote()).willReturn(remote2);
         }
     }
 
@@ -75,6 +96,10 @@ public abstract class BaseTest {
     protected void truncateFollowTables(){
         AbstractDBHelper.session.execute("truncate followee");
         AbstractDBHelper.session.execute("truncate follower");
+    }
+
+    protected void truncatePrivacyTable(){
+        AbstractDBHelper.session.execute("truncate privacy");
     }
 
 }

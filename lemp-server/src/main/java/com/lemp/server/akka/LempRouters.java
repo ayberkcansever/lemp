@@ -17,13 +17,13 @@ public class LempRouters {
     private static ActorRef messageProcessorRouter;
     private static ActorRef offlineMessageInserterRouter;
     private static ActorRef followingRequestRouter;
-    private static ActorRef stateRequestRouter;
     private static ActorRef personalRequestRouter;
     private static ActorRef privacyRequestRouter;
     private static ActorRef groupRequestRouter;
     private static ActorRef broadcastGroupRequestRouter;
     private static ActorRef serverRequestProcessorRouter;
     private static ActorRef administrativeRequestProcessorRouter;
+    private static ActorRef eventHandlerRouter;
 
     private LempRouters() { }
 
@@ -41,8 +41,6 @@ public class LempRouters {
                     "offlineMessageInserterRouter");
             followingRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(FollowingRequestProcessorActor.class)),
                     "followingRequestRouter");
-            stateRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(StateRequestProcessorActor.class)),
-                    "stateRequestRouter");
             personalRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(PersonalRequestProcessorActor.class)),
                     "personalRequestRouter");
             privacyRequestRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(PrivacyRequestProcessorActor.class)),
@@ -55,6 +53,8 @@ public class LempRouters {
                     "serverRequestProcessorRouter");
             administrativeRequestProcessorRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(AdministrativeRequestProcessorActor.class)),
                     "administrativeRequestProcessorRouter");
+            eventHandlerRouter = Application.getActorSystem().actorOf(FromConfig.getInstance().props(Props.create(EventHandlerActor.class)),
+                    "eventHandlerRouter");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,10 +84,6 @@ public class LempRouters {
         return followingRequestRouter;
     }
 
-    public static ActorRef getStateRequestRouter() {
-        return stateRequestRouter;
-    }
-
     public static ActorRef getPersonalRequestRouter() {
         return personalRequestRouter;
     }
@@ -110,5 +106,9 @@ public class LempRouters {
 
     public static ActorRef getAdministrativeRequestProcessorRouter() {
         return administrativeRequestProcessorRouter;
+    }
+
+    public static ActorRef getEventHandlerRouter() {
+        return eventHandlerRouter;
     }
 }

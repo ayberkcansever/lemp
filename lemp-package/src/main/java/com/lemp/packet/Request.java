@@ -28,6 +28,7 @@ public class Request extends Packet{
         }
     }
 
+    private String r;
     private Authentication a;
     private Logout lo;
     private List<User> af;
@@ -45,6 +46,14 @@ public class Request extends Packet{
     private Unmute umt;
     private Broadcast br;
     private Administrative ad;
+
+    public String getR() {
+        return r;
+    }
+
+    public void setR(String r) {
+        this.r = r;
+    }
 
     public Authentication getA() {
         return a;

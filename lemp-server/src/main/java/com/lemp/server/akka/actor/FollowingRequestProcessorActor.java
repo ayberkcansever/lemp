@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Created by ayberkcansever on 15/01/17.
  */
-public class FollowingRequestProcessorActor extends UntypedActor {
+public class FollowingRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 
@@ -33,7 +33,7 @@ public class FollowingRequestProcessorActor extends UntypedActor {
                 // Add new following
                 if(request.getAf() != null) {
                     List<com.lemp.object.User> userList = request.getAf();
-                    List<Followee> followeeList = userList.stream()
+                    List<Followee> followeeList = userList.parallelStream()
                             .map(u -> new Followee(username, u.getU(), u.getN())).collect(Collectors.toList());
                     FollowerDBHelper.getInstance().insertFolloweeList(username, followeeList);
                 }

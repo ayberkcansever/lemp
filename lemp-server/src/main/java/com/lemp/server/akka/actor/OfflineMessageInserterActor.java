@@ -7,7 +7,7 @@ import com.lemp.server.database.OfflineMessageDBHelper;
 /**
  * Created by ayberkcansever on 21/01/17.
  */
-public class OfflineMessageInserterActor extends UntypedActor {
+public class OfflineMessageInserterActor extends LempActor {
 
     @Override
     public void onReceive(Object message) throws Throwable {
