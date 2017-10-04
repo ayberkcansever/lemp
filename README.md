@@ -294,7 +294,7 @@ Id of the response must be same as the id of the request.
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", ad:{c:"cr/del", i:"identity", t:"token", ty:"0/1"}}}  ``` |  
   
-  - User Types (ty)
+  - Commands (c)
       * cr : create
       * del: delete
       
