@@ -109,7 +109,7 @@ An authentication request is sent to the server after the persistence network co
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", get:{o:"pl"}} }   ``` |
+| Request       | ```{ rq:{id:"id", get:{o:"pr"}} }   ``` |
 | Response      | ```{ rp:{id:"id", pr:["user1","user2","user"3]} }   ``` |
   
 ##### 1.6. Group Requests
