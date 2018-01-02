@@ -104,6 +104,13 @@ An authentication request is sent to the server after the persistence network co
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", ub:{u:"username"}} }   ``` |
+
+  ###### 1.5.3. Get Privacy List Request
+  
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", get:{o:"pl"}} }   ``` |
+| Response      | ```{ rp:{id:"id", pr:["user1","user2","user"3]} }   ``` |
   
 ##### 1.6. Group Requests
   ###### 1.6.1. Create Group Request
