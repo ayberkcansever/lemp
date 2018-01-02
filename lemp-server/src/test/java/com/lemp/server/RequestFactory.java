@@ -135,4 +135,31 @@ public class RequestFactory {
         request.setSt(statusObj);
         return request;
     }
+
+    public static Request getAddPrivacyRequest(String id, String bannedUsername) {
+        Request request = new Request();
+        request.setId(id);
+        Privacy privacyObj = new Privacy();
+        privacyObj.setUsername(bannedUsername);
+        request.setB(privacyObj);
+        return request;
+    }
+
+    public static Request getRemovePrivacyRequest(String id, String bannedUsername) {
+        Request request = new Request();
+        request.setId(id);
+        Privacy privacyObj = new Privacy();
+        privacyObj.setUsername(bannedUsername);
+        request.setUb(privacyObj);
+        return request;
+    }
+
+    public static Request getGetPrivacyRequest(String id) {
+        Request request = new Request();
+        request.setId(id);
+        Get getObj = new Get();
+        getObj.setO("pr");
+        request.setGet(getObj);
+        return request;
+    }
 }

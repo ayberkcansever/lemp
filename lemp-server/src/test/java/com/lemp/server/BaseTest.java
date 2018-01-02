@@ -4,7 +4,6 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.DeadLetter;
 import akka.actor.Props;
-import akka.cluster.pubsub.DistributedPubSub;
 import com.google.gson.Gson;
 import com.lemp.packet.Datum;
 import com.lemp.packet.Request;

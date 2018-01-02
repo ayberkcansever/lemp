@@ -1,6 +1,5 @@
 package com.lemp.server.akka.actor;
 
-import akka.actor.UntypedActor;
 import com.lemp.packet.Message;
 import com.lemp.server.database.OfflineMessageDBHelper;
 

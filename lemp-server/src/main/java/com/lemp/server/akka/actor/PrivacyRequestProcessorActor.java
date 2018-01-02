@@ -1,11 +1,12 @@
 package com.lemp.server.akka.actor;
 
-import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.object.SessionRequest;
+import com.lemp.server.database.PrivacyDBHelper;
+import com.lemp.server.database.dbo.User;
 
 import javax.websocket.Session;
 
@@ -23,17 +24,22 @@ public class PrivacyRequestProcessorActor extends LempActor {
                 SessionRequest sessionRequest = (SessionRequest) msg;
                 Request request = sessionRequest.getRequest();
                 Session session = sessionRequest.getSession();
+                String username = ((User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
+                Response response = new Response(request.getId());
 
                 // Block Request
                 if(request.getB() != null) {
-
+                    String bannedUsername = request.getB().getUsername();
+                    PrivacyDBHelper.getInstance().addPrivacy(username, bannedUsername);
                 }
                 // Unblock Request
                 else if(request.getUb() != null) {
-
+                    String unblockedUsername = request.getUb().getUsername();
+                    PrivacyDBHelper.getInstance().removePrivacy(username, unblockedUsername);
+                } else if(request.getGet() != null) {
+                    response.setPr(PrivacyDBHelper.getInstance().getPrivacySet(username));
                 }
 
-                Response response = new Response();
                 session.getBasicRemote().sendText(gson.toJson(new Datum(response)));
             } catch (Exception e) {
                 e.printStackTrace();

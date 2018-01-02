@@ -1,9 +1,9 @@
 package com.lemp.server.akka.actor;
 
 import akka.actor.ActorRef;
-import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.object.Error;
+import com.lemp.object.Get;
 import com.lemp.packet.Datum;
 import com.lemp.packet.Message;
 import com.lemp.packet.Response;
@@ -89,6 +89,12 @@ public class PacketProcessorActor extends LempActor {
                     // Administrative Request
                     else if(datum.getRq().getAd() != null) {
                         LempRouters.getAdministrativeRequestProcessorRouter().tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
+                    }
+                    // Get Object Request
+                    else if(datum.getRq().getGet() != null) {
+                        if(Get.Type.privacy.getKey().equals(datum.getRq().getGet().getO())) {
+                            LempRouters.getPrivacyRequestRouter().tell(new SessionRequest(datum.getRq(), session), ActorRef.noSender());
+                        }
                     }
                 } else if(datum.getM() != null) {
                     // override the sender with session identity

@@ -1,7 +1,6 @@
 package com.lemp.server.akka.actor;
 
 import akka.actor.ActorRef;
-import akka.actor.UntypedActor;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.google.gson.Gson;

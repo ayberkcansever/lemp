@@ -3,6 +3,8 @@ package com.lemp.packet;
 import com.lemp.object.*;
 import com.lemp.object.Error;
 
+import java.util.Set;
+
 /**
  * Created by ayberkcansever on 13/01/17.
  */
@@ -17,6 +19,7 @@ public class Response extends Packet {
     private Group g;
     private Name n;
     private Broadcast br;
+    private Set<String> pr;
     private Error.Type e;
 
     public Response() {
@@ -113,5 +116,13 @@ public class Response extends Packet {
 
     public void setE(Error.Type e) {
         this.e = e;
+    }
+
+    public Set<String> getPr() {
+        return pr;
+    }
+
+    public void setPr(Set<String> pr) {
+        this.pr = pr;
     }
 }

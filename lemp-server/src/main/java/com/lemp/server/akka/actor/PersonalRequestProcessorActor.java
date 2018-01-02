@@ -1,6 +1,5 @@
 package com.lemp.server.akka.actor;
 
-import akka.actor.UntypedActor;
 import com.google.gson.Gson;
 import com.lemp.object.Error;
 import com.lemp.object.Picture;

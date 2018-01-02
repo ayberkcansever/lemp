@@ -1,6 +1,9 @@
 package com.lemp.server.akka.actor;
 
-import akka.actor.*;
+import akka.actor.ActorRef;
+import akka.actor.InvalidActorNameException;
+import akka.actor.PoisonPill;
+import akka.actor.Props;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.google.gson.Gson;
@@ -9,8 +12,6 @@ import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.Application;
-import com.lemp.server.akka.LempRouters;
-import com.lemp.server.akka.event.LoginEvent;
 import com.lemp.server.akka.object.SessionRequest;
 import com.lemp.server.database.UserDBHelper;
 import com.lemp.server.database.dbo.User;

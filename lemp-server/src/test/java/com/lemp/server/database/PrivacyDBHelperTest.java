@@ -1,6 +1,5 @@
 package com.lemp.server.database;
 
-import com.lemp.object.Privacy;
 import com.lemp.server.BaseTest;
 import com.lemp.server.cache.CacheHolder;
 import org.junit.Assert;

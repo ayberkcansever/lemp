@@ -46,6 +46,7 @@ public class Request extends Packet{
     private Unmute umt;
     private Broadcast br;
     private Administrative ad;
+    private Get get;
 
     public String getR() {
         return r;
@@ -189,5 +190,13 @@ public class Request extends Packet{
 
     public void setAd(Administrative ad) {
         this.ad = ad;
+    }
+
+    public Get getGet() {
+        return get;
+    }
+
+    public void setGet(Get get) {
+        this.get = get;
     }
 }
