@@ -35,6 +35,18 @@ public class Broadcast {
     private String p;
     private List<String> m;
     private long c;
+    private String o;
+
+    public Broadcast() {
+    }
+
+    public Broadcast(String i, String n, String p, long c, String o) {
+        this.i = i;
+        this.n = n;
+        this.p = p;
+        this.c = c;
+        this.o = o;
+    }
 
     public String getT() {
         return t;
@@ -82,5 +94,13 @@ public class Broadcast {
 
     public void setC(long c) {
         this.c = c;
+    }
+
+    public String getO() {
+        return o;
+    }
+
+    public void setO(String o) {
+        this.o = o;
     }
 }

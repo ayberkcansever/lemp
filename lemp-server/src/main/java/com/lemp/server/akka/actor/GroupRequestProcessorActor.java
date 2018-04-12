@@ -6,6 +6,7 @@ import com.lemp.packet.Datum;
 import com.lemp.packet.Request;
 import com.lemp.packet.Response;
 import com.lemp.server.akka.object.SessionRequest;
+import com.lemp.server.database.dbo.User;
 
 import javax.websocket.Session;
 
@@ -23,6 +24,7 @@ public class GroupRequestProcessorActor extends LempActor {
                 SessionRequest sessionRequest = (SessionRequest) msg;
                 Request request = sessionRequest.getRequest();
                 Session session = sessionRequest.getSession();
+                String username = ((User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
 
                 // todo: fill them
                 // Create Group Request

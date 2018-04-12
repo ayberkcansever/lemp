@@ -162,4 +162,86 @@ public class RequestFactory {
         request.setGet(getObj);
         return request;
     }
+
+    public static Request getCreateBroadcastRequest(String id, int memberSize){
+        Request request = new Request();
+        request.setId(id);
+        String broadcastId = "test_br_".concat(String.valueOf(System.currentTimeMillis()));
+        Broadcast broadcast = new Broadcast();
+        broadcast.setT(Broadcast.RequestType.create.getKey());
+        broadcast.setI(broadcastId);
+        broadcast.setN("brName");
+        broadcast.setP("brPic");
+        broadcast.setM(new ArrayList<>());
+        for(int i = 10; i < memberSize + 10; i++) {
+            broadcast.getM().add("testuser".concat(String.valueOf(i)));
+        }
+        request.setBr(broadcast);
+        return request;
+    }
+
+    public static Request getTerminateBroadcastRequest(String id, String broadcastId){
+        Request request = new Request();
+        request.setId(id);
+        Broadcast broadcast = new Broadcast();
+        broadcast.setT(Broadcast.RequestType.terminate.getKey());
+        broadcast.setI(broadcastId);
+        request.setBr(broadcast);
+        return request;
+    }
+
+    public static Request getInformationBroadcastRequest(String id, String broadcastId){
+        Request request = new Request();
+        request.setId(id);
+        Broadcast broadcast = new Broadcast();
+        broadcast.setT(Broadcast.RequestType.information.getKey());
+        broadcast.setI(broadcastId);
+        request.setBr(broadcast);
+        return request;
+    }
+
+    public static Request getAddMembersToBroadcastRequest(String id, String broadcastId, List<String> newMembers){
+        Request request = new Request();
+        request.setId(id);
+        Broadcast broadcast = new Broadcast();
+        broadcast.setT(Broadcast.RequestType.add.getKey());
+        broadcast.setI(broadcastId);
+        broadcast.setM(newMembers);
+        request.setBr(broadcast);
+        return request;
+    }
+
+    public static Request getRemoveMembersFromBroadcastRequest(String id, String broadcastId, List<String> members){
+        Request request = new Request();
+        request.setId(id);
+        Broadcast broadcast = new Broadcast();
+        broadcast.setT(Broadcast.RequestType.banish.getKey());
+        broadcast.setI(broadcastId);
+        broadcast.setM(members);
+        request.setBr(broadcast);
+        return request;
+    }
+
+    public static Request getBroadcastNameRequest(String id, Request.Type type, String broadcastId, String... newName){
+        Request request = new Request();
+        request.setId(id);
+        Name name = new Name();
+        name.setB(broadcastId);
+        name.setN(newName.length > 0 ? newName[0] : null);
+        name.setT(type.getKey());
+        request.setN(name);
+        return request;
+    }
+
+    public static Request getBroadcastPicRequest(String id, Request.Type type, String broadcastId, String... newPic){
+        Request request = new Request();
+        request.setId(id);
+        Picture picture = new Picture();
+        picture.setB(broadcastId);
+        picture.setV(newPic.length > 0 ? newPic[0] : null);
+        picture.setT(type.getKey());
+        request.setP(picture);
+        return request;
+    }
+
 }

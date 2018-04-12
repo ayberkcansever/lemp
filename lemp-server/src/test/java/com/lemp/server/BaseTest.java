@@ -97,6 +97,11 @@ public abstract class BaseTest {
         AbstractDBHelper.session.execute("truncate follower");
     }
 
+    protected void truncateBroadcastTables(){
+        AbstractDBHelper.session.execute("truncate broadcast");
+        AbstractDBHelper.session.execute("truncate broadcast_member");
+    }
+
     protected void truncatePrivacyTable(){
         AbstractDBHelper.session.execute("truncate privacy");
     }
