@@ -104,6 +104,13 @@ An authentication request is sent to the server after the persistence network co
 | Type          | Packet      | 
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", ub:{u:"username"}} }   ``` |
+
+  ###### 1.5.3. Get Privacy List Request
+  
+| Type          | Packet      | 
+| ------------- |-------------
+| Request       | ```{ rq:{id:"id", get:{o:"pr"}} }   ``` |
+| Response      | ```{ rp:{id:"id", pr:["user1","user2","user"3]} }   ``` |
   
 ##### 1.6. Group Requests
   ###### 1.6.1. Create Group Request
@@ -294,7 +301,7 @@ Id of the response must be same as the id of the request.
 | ------------- |-------------
 | Request       | ```{ rq:{id:"id", ad:{c:"cr/del", i:"identity", t:"token", ty:"0/1"}}}  ``` |  
   
-  - User Types (ty)
+  - Commands (c)
       * cr : create
       * del: delete
       
