@@ -257,7 +257,7 @@ An authentication request is sent to the server after the persistence network co
   
 | Type          | Packet      | 
 | ------------- |-------------
-| Request       | ```{ rq:{id:"id", n:{t:"s", b:"id"}} }   ``` |
+| Request       | ```{ rq:{id:"id", n:{t:"g", b:"id"}} }   ``` |
 | Response      | ```{ rp:{id:"id", n:{b:"id", n:"broadcastname"}} }   ``` |   
 
 
