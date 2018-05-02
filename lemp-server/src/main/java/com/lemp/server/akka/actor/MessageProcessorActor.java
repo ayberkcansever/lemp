@@ -10,7 +10,7 @@ import com.lemp.server.database.PrivacyDBHelper;
  */
 public class MessageProcessorActor extends LempActor {
 
-    @Override
+    /*@Override
     public void onReceive(Object message) throws Throwable {
 
         if(message instanceof Message) {
@@ -32,6 +32,29 @@ public class MessageProcessorActor extends LempActor {
             sendPacket(receiver, response);
         }
 
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(Message.class, msg -> {
+                    // block the message if receiver is banned the sender
+                    if(PrivacyDBHelper.getInstance().getPrivacySet(msg.getR()).contains(msg.getS())) {
+                        return;
+                    }
+                    sendPacket(msg.getR(), msg);
+                })
+                .match(Request.class, req -> {
+                    if(req.getS() != null) {
+                        String username = req.getS().getU();
+                        sendPacket(username, req);
+                    }
+                })
+                .match(Response.class, response -> {
+                    String receiver = response.getR();
+                    sendPacket(receiver, response);
+                })
+                .build();
     }
 
 }

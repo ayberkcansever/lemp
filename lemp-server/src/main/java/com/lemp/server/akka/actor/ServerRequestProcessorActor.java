@@ -16,7 +16,7 @@ public class ServerRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 
-    @Override
+    /*@Override
     public void onReceive(Object msg) throws Throwable {
         if(msg instanceof SessionRequest) {
             try {
@@ -46,6 +46,39 @@ public class ServerRequestProcessorActor extends LempActor {
             }
         }
 
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(SessionRequest.class, msg -> {
+                    try {
+                        SessionRequest sessionRequest = msg;
+                        ServerRequest serverRequest = sessionRequest.getServerRequest();
+                        Session session = sessionRequest.getSession();
+
+                        switch (ServerRequest.Type.getByKey(serverRequest.getT())) {
+                            case time:
+                                ServerResponse serverTimeResponse = new ServerResponse(serverRequest);
+                                serverTimeResponse.setT(ServerRequest.Type.time.getKey());
+                                serverTimeResponse.setTm(System.currentTimeMillis());
+                                serverTimeResponse.setO(TimeZone.getDefault().getRawOffset() / (3600 * 1000));
+                                session.getBasicRemote().sendText(gson.toJson(new Datum(serverTimeResponse)));
+                                break;
+                            case knock_kncok:
+                                ServerResponse serverResponse = new ServerResponse(serverRequest);
+                                serverResponse.setT(ServerRequest.Type.knock_kncok.getKey());
+                                session.getBasicRemote().sendText(gson.toJson(new Datum(serverResponse)));
+                                break;
+                            default:
+                                break;
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build();
     }
 
 }

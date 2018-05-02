@@ -14,7 +14,7 @@ import com.lemp.server.database.StateDBHelper;
  */
 public class DeadLetterActor extends LempActor {
 
-    @Override
+    /*@Override
     public void onReceive(Object message) throws Throwable {
         if(message instanceof DeadLetter) {
             DeadLetter deadLetter = (DeadLetter) message;
@@ -35,6 +35,31 @@ public class DeadLetterActor extends LempActor {
                 }
             }
         }
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(DeadLetter.class, msg -> {
+                    DeadLetter deadLetter = msg;
+                    if(deadLetter.message() instanceof Message) {
+                        LempRouters.getOfflineMessageInserterRouter().tell(deadLetter.message(), ActorRef.noSender());
+                    } else if(deadLetter.message() instanceof Request) {
+                        Request req = (Request) deadLetter.message();
+                        if(req.getS() != null) {
+                            String username = req.getS().getU();
+                            Response response = new Response();
+                            response.setId(req.getId());
+                            response.setR(req.getR());
+                            State state = new State();
+                            state.setU(username);
+                            state.setV(StateDBHelper.getInstance().getState(username));
+                            response.setS(state);
+                            LempRouters.getMessageProcessorRouter().tell(response, ActorRef.noSender());
+                        }
+                    }
+                })
+                .build();
     }
 
 }

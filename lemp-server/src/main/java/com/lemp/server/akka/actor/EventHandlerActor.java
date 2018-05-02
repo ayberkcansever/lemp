@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class EventHandlerActor extends LempActor {
 
-    @Override
+    /*@Override
     public void onReceive(Object msg) throws Throwable {
 
         if(msg instanceof LoginEvent) {
@@ -38,5 +38,34 @@ public class EventHandlerActor extends LempActor {
             });
         }
 
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(LoginEvent.class, msg -> {
+                    LoginEvent loginEvent = msg;
+                    String loginUser = loginEvent.getUsername();
+                    Set<Follower> followers = FollowerDBHelper.getInstance().getUsersFollowers(loginUser);
+                    Information information = new Information();
+                    information.setLi(loginUser);
+                    followers.parallelStream().forEach(follower -> {
+                        if(!PrivacyDBHelper.getInstance().getPrivacySet(loginUser).contains(follower.getFollower())) {
+                            sendPacket(follower.getFollower(), information);
+                        }
+                    });
+                }).match(LogoutEvent.class, msg -> {
+                    LogoutEvent logoutEvent = msg;
+                    String logoutUser = logoutEvent.getUsername();
+                    Set<Follower> followers = FollowerDBHelper.getInstance().getUsersFollowers(logoutUser);
+                    Information information = new Information();
+                    information.setLo(logoutUser);
+                    followers.parallelStream().forEach(follower -> {
+                        if(!PrivacyDBHelper.getInstance().getPrivacySet(logoutUser).contains(follower.getFollower())) {
+                            sendPacket(follower.getFollower(), information);
+                        }
+                    });
+                })
+                .build();
     }
 }

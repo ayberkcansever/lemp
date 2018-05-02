@@ -20,7 +20,7 @@ public class LogoutRequestProcessorActor extends LempActor {
         mediator = DistributedPubSub.get(getContext().system()).mediator();
     }
 
-    @Override
+    /*@Override
     public void onReceive(Object msg) throws Throwable {
         if(msg instanceof SessionRequest) {
             try {
@@ -34,6 +34,23 @@ public class LogoutRequestProcessorActor extends LempActor {
             }
         }
 
+    }-*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(SessionRequest.class, msg -> {
+                    try {
+                        SessionRequest sessionRequest = msg;
+                        Session session = sessionRequest.getSession();
+                        String username = ((User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
+                        mediator.tell(new DistributedPubSubMediator.Send("/user/" + username, PoisonPill.getInstance(), false), ActorRef.noSender());
+                        session.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build();
     }
 
 }

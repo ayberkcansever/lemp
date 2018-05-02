@@ -8,7 +8,7 @@ import com.lemp.server.database.OfflineMessageDBHelper;
  */
 public class OfflineMessageInserterActor extends LempActor {
 
-    @Override
+    /*@Override
     public void onReceive(Object message) throws Throwable {
         if(message instanceof Message) {
             Message msg = (Message) message;
@@ -16,5 +16,16 @@ public class OfflineMessageInserterActor extends LempActor {
                 OfflineMessageDBHelper.getInstance().insertOfflineMessage(msg);
             }
         }
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(Message.class, msg -> {
+                    if(Message.PersistencyType.persistent.getKey().equals(msg.getP())) {
+                        OfflineMessageDBHelper.getInstance().insertOfflineMessage(msg);
+                    }
+                })
+                .build();
     }
 }

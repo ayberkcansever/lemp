@@ -33,7 +33,7 @@ public class SessionActor extends LempActor {
         mediator.tell(new DistributedPubSubMediator.Put(getSelf()), getSelf());
     }
 
-    @Override
+    /*@Override
     public void onReceive(Object msg) throws Throwable {
         if(msg instanceof Message) {
             session.getBasicRemote().sendText(gson.toJson(new Datum((Message) msg)));
@@ -57,6 +57,35 @@ public class SessionActor extends LempActor {
         } else if(msg instanceof Information) {
             session.getBasicRemote().sendText(gson.toJson(new Datum((Information) msg)));
         }
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(Message.class, msg -> {
+                    session.getBasicRemote().sendText(gson.toJson(new Datum((Message) msg)));
+                })
+                .match(Request.class, req -> {
+                    if(req.getS() != null) {
+                        Response response = new Response();
+                        response.setId(req.getId());
+                        response.setR(req.getR());
+                        State state = new State();
+                        state.setU(((User) session.getUserProperties().get(ActorProperties.USER)).getUsername());
+                        state.setV(0);
+                        response.setS(state);
+                        LempRouters.getMessageProcessorRouter().tell(response, ActorRef.noSender());
+                    }
+                })
+                .match(Response.class, response -> {
+                    if(response.getS() != null) {
+                        session.getBasicRemote().sendText(gson.toJson(new Datum(response)));
+                    }
+                })
+                .match(Information.class, msg -> {
+                    session.getBasicRemote().sendText(gson.toJson(new Datum(msg)));
+                })
+                .build();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class FollowingRequestProcessorActor extends LempActor {
 
     private Gson gson = new Gson();
 
-    @Override
+    /*@Override
     public void onReceive(Object msg) throws Throwable {
         if(msg instanceof SessionRequest) {
             SessionRequest sessionRequest = (SessionRequest) msg;
@@ -54,6 +54,42 @@ public class FollowingRequestProcessorActor extends LempActor {
             }
         }
 
+    }*/
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(SessionRequest.class, msg -> {
+                    SessionRequest sessionRequest = msg;
+                    Request request = sessionRequest.getRequest();
+                    Session session = sessionRequest.getSession();
+                    String username = ((com.lemp.server.database.dbo.User) session.getUserProperties().get(ActorProperties.USER)).getUsername();
+                    try {
+                        // Add new following
+                        if(request.getAf() != null) {
+                            List<com.lemp.object.User> userList = request.getAf();
+                            List<Followee> followeeList = userList.parallelStream()
+                                    .map(u -> new Followee(username, u.getU(), u.getN())).collect(Collectors.toList());
+                            FollowerDBHelper.getInstance().insertFolloweeList(username, followeeList);
+                        }
+                        // Remove following
+                        else if(request.getRf() != null) {
+                            FollowerDBHelper.getInstance().deleteUserFollowee(username, request.getRf());
+                        }
+                        // Update following
+                        else if(request.getUf() != null) {
+                            for(User user : request.getUf()) {
+                                FollowerDBHelper.getInstance().updateFollowee(username, user.getU(), user.getN());
+                            }
+                        }
+                        session.getBasicRemote().sendText(gson.toJson(new Datum(new Response())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Response response = new Response(Error.Type.internal_server_error);
+                        session.getBasicRemote().sendText(gson.toJson(new Datum(response)));
+                    }
+                })
+                .build();
     }
 
 }

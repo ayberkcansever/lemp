@@ -1,13 +1,13 @@
 package com.lemp.server.akka.actor;
 
+import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
-import akka.actor.UntypedActor;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.lemp.packet.Packet;
 import com.lemp.server.Application;
 
-public abstract class LempActor extends UntypedActor {
+public abstract class LempActor extends AbstractActor {
 
     protected ActorRef mediator;
 
